@@ -1,0 +1,21 @@
+@layer components {
+  /**
+   * @component Alert
+   * @description Dismissible status message styles.
+   * @selector .alert Public component selector.
+   * @modifier .alert--warning Warning variant.
+   * @token color.alert.text Text color token.
+   * @layer components
+   */
+  .alert {
+    /**
+     * @cssprop --alert-color Text color custom property.
+     */
+    --alert-color: #164e63;
+    color: var(--alert-color);
+  }
+
+  .alert--warning {
+    color: #92400e;
+  }
+}

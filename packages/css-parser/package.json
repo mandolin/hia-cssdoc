@@ -3,5 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "description": "CSS parser wrapper boundary for CSSDoc.",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.mjs"
+  },
+  "dependencies": {
+    "postcss": "8.5.16"
+  }
 }

@@ -17,7 +17,15 @@ The first specification track defines a single CSSDoc language specification tha
 
 ## Status
 
-This workspace is currently a skeleton. Runtime parser dependencies and public package publishing remain intentionally disabled until the foundation ADRs are accepted.
+This workspace contains the first CSSDoc foundation slice:
+
+- a PostCSS-backed CSS parser boundary;
+- unprefixed CSSDoc annotation extraction;
+- a DTCG-style design token bridge;
+- a draft `hia-cssdoc-extraction@0.1.0` artifact shape;
+- a HIA core document adapter.
+
+Packages remain private until the public package naming and release sequence are finalized.
 
 ## Development
 
