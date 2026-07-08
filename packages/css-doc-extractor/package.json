@@ -1,0 +1,7 @@
+{
+  "name": "@hia-doc/css-doc-extractor",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Extracts CSSDoc artifacts from CSS sources.",
+  "license": "MIT"
+}
