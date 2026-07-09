@@ -5,6 +5,12 @@ import test from "node:test";
 import { cssExtractionToHiaDocument } from "../packages/css-doc-adapter/src/index.mjs";
 import { extractCssDoc } from "../packages/css-doc-extractor/src/index.mjs";
 import { parseCss } from "../packages/css-parser/src/index.mjs";
+import {
+  CSSDOC_EXTRACTION_CONTRACT,
+  CSSDOC_EXTRACTION_CONTRACT_VERSION,
+  CSSDOC_EXTRACTION_JSON_SCHEMA,
+  CSSDOC_EXTRACTION_SCHEMA_ID
+} from "../packages/cssdoc-spec/src/index.mjs";
 import { designTokensToCssExtraction } from "../packages/design-token-bridge/src/index.mjs";
 
 const fixture = await readFile(new URL("../fixtures/basic.css", import.meta.url), "utf8");
@@ -28,6 +34,13 @@ test("extractCssDoc maps explicit CSSDoc annotations to symbols", () => {
   assert.ok(kinds.includes("css-layer"));
   assert.ok(kinds.includes("design-token"));
   assert.equal(artifact.source.sourcesContent, undefined);
+});
+
+test("cssdoc spec exports the extraction JSON Schema contract", () => {
+  assert.equal(CSSDOC_EXTRACTION_JSON_SCHEMA.$id, CSSDOC_EXTRACTION_SCHEMA_ID);
+  assert.equal(CSSDOC_EXTRACTION_JSON_SCHEMA.properties.contract.const, CSSDOC_EXTRACTION_CONTRACT);
+  assert.equal(CSSDOC_EXTRACTION_JSON_SCHEMA.properties.contractVersion.const, CSSDOC_EXTRACTION_CONTRACT_VERSION);
+  assert.ok(CSSDOC_EXTRACTION_JSON_SCHEMA.required.includes("symbols"));
 });
 
 test("cssExtractionToHiaDocument emits a core document compatible shape", () => {
