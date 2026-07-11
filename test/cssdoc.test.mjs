@@ -71,3 +71,25 @@ test("designTokensToCssExtraction maps DTCG-style token objects", () => {
   assert.equal(artifact.symbols[0].kind, "design-token");
   assert.equal(artifact.symbols[0].name, "color.alert.text");
 });
+
+test("design token bridge supports DTCG 2025.10 root tokens and inherited types", () => {
+  const artifact = designTokensToCssExtraction({
+    $schema: "https://www.designtokens.org/schemas/2025.10/format.json",
+    color: {
+      $type: "color",
+      $root: { $value: "#0f172a" },
+      action: { $value: "#0369a1" }
+    }
+  });
+
+  assert.equal(artifact.metadata.specification, "2025.10");
+  assert.deepEqual(artifact.symbols.map((symbol) => symbol.name), ["color", "color.action"]);
+  assert.ok(artifact.symbols.every((symbol) => symbol.metadata.type === "color"));
+
+  const rootArtifact = designTokensToCssExtraction({
+    $type: "dimension",
+    $root: { $value: { value: 4, unit: "px" } }
+  });
+  assert.equal(rootArtifact.symbols[0].name, "root");
+  assert.equal(rootArtifact.symbols[0].metadata.type, "dimension");
+});

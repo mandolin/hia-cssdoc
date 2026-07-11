@@ -1,0 +1,57 @@
+export const CSSDOC_CONFIG_SCHEMA_VERSION = "0.1.0-draft";
+export const CSSDOC_CONFIG_SCHEMA_ID = "https://mandolin.github.io/HIA-Documentation/schemas/cssdoc-config-0.1.0-draft.schema.json";
+
+const relativeDirectory = {
+  type: "string",
+  minLength: 1,
+  not: {
+    anyOf: [
+      { pattern: "^(?:[A-Za-z]:|/|\\\\|[A-Za-z][A-Za-z0-9+.-]*:)" },
+      { pattern: "(?:^|[\\\\/])\\.\\.(?:[\\\\/]|$)" }
+    ]
+  }
+};
+
+export const CSSDOC_CONFIG_JSON_SCHEMA = Object.freeze({
+  $schema: "https://json-schema.org/draft/2020-12/schema",
+  $id: CSSDOC_CONFIG_SCHEMA_ID,
+  title: "CSSDoc Config",
+  type: "object",
+  additionalProperties: false,
+  required: ["schemaVersion", "workspaceRoot", "outputDirectory", "inputs"],
+  properties: {
+    $schema: { const: CSSDOC_CONFIG_SCHEMA_ID },
+    schemaVersion: { const: CSSDOC_CONFIG_SCHEMA_VERSION },
+    workspaceRoot: relativeDirectory,
+    outputDirectory: relativeDirectory,
+    inputs: {
+      type: "array",
+      minItems: 1,
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["kind", "path"],
+        properties: {
+          kind: { enum: ["css", "postcss-css", "design-token"] },
+          path: relativeDirectory,
+          language: { type: "string", minLength: 1 }
+        }
+      }
+    },
+    options: {
+      type: "object",
+      additionalProperties: false,
+      properties: {
+        emitDocSourceMap: { type: "boolean" },
+        sourcesContentPolicy: { enum: ["none", "reference", "embed"] },
+        writeResultManifest: { type: "boolean" }
+      }
+    },
+    profileIds: {
+      type: "array",
+      minItems: 1,
+      uniqueItems: true,
+      items: { type: "string", pattern: "^[a-z0-9][a-z0-9._-]*$" }
+    }
+  }
+});

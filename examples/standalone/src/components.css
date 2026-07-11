@@ -1,0 +1,9 @@
+/**
+ * @component ActionButton
+ * @selector .action-button Primary selector.
+ * @modifier .action-button--quiet Quiet appearance.
+ * @description Action button styles.
+ */
+.action-button {
+  color: var(--action-color);
+}

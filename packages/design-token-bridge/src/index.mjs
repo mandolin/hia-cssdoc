@@ -8,7 +8,7 @@ import {
 export function designTokensToCssExtraction(tokens, options = {}) {
   const sourcePath = normalizeSourcePath(options.path ?? "tokens.json");
   const symbols = [];
-  collectTokens(tokens, [], symbols, sourcePath);
+  collectTokens(tokens, [], symbols, sourcePath, null);
 
   return {
     contract: CSSDOC_EXTRACTION_CONTRACT,
@@ -34,17 +34,18 @@ export function designTokensToCssExtraction(tokens, options = {}) {
       sourcesContentPolicy: "none"
     },
     metadata: {
-      format: "dtcg"
+      format: "dtcg",
+      specification: inferDtcgSpecification(tokens?.$schema)
     }
   };
 }
 
-function collectTokens(node, pathParts, symbols, sourcePath) {
+function collectTokens(node, pathParts, symbols, sourcePath, inheritedType) {
   if (!node || typeof node !== "object") {
     return;
   }
   if (Object.hasOwn(node, "$value")) {
-    const name = pathParts.join(".");
+    const name = pathParts.join(".") || "root";
     symbols.push({
       id: `token:${slug(name)}`,
       kind: CSSDOC_SYMBOL_KINDS.designToken,
@@ -58,19 +59,33 @@ function collectTokens(node, pathParts, symbols, sourcePath) {
         }
       },
       metadata: {
-        type: node.$type ?? null,
-        value: node.$value
+        type: node.$type ?? inheritedType,
+        value: node.$value,
+        deprecated: node.$deprecated ?? null,
+        extensions: node.$extensions ?? null
       }
     });
     return;
+  }
+
+  const groupType = node.$type ?? inheritedType;
+  if (node.$root && typeof node.$root === "object") {
+    collectTokens(node.$root, pathParts, symbols, sourcePath, groupType);
   }
 
   for (const [key, value] of Object.entries(node)) {
     if (key.startsWith("$")) {
       continue;
     }
-    collectTokens(value, [...pathParts, key], symbols, sourcePath);
+    collectTokens(value, [...pathParts, key], symbols, sourcePath, groupType);
   }
+}
+
+function inferDtcgSpecification(schema) {
+  if (typeof schema !== "string") {
+    return null;
+  }
+  return schema.includes("/2025.10/") ? "2025.10" : schema;
 }
 
 function slug(value) {

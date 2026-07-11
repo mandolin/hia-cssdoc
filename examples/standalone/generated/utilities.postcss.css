@@ -1,0 +1,11 @@
+/**
+ * @layer utilities Utility layer.
+ */
+@layer utilities {
+  /**
+   * @selector .sr-only Visually hidden content.
+   */
+  .sr-only {
+    position: absolute;
+  }
+}

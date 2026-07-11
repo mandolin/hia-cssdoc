@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "0.1.0-draft",
+  "workspaceRoot": ".",
+  "outputDirectory": "dist/cssdoc",
+  "inputs": [
+    {
+      "kind": "css",
+      "path": "src/components.css"
+    },
+    {
+      "kind": "postcss-css",
+      "path": "generated/utilities.postcss.css"
+    },
+    {
+      "kind": "design-token",
+      "path": "tokens/theme.tokens.json"
+    }
+  ],
+  "options": {
+    "emitDocSourceMap": true,
+    "sourcesContentPolicy": "none",
+    "writeResultManifest": true
+  }
+}

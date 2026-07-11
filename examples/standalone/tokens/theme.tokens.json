@@ -1,0 +1,14 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "color": {
+    "$type": "color",
+    "$root": {
+      "$value": "#0f172a",
+      "$description": "Default foreground color."
+    },
+    "action": {
+      "$value": "#0369a1",
+      "$description": "Action foreground color."
+    }
+  }
+}
