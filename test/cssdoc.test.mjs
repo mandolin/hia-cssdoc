@@ -54,6 +54,25 @@ test("cssExtractionToHiaDocument emits a core document compatible shape", () => 
   assert.equal(document.symbols[0].source.definedIn.relativePath, "fixtures/basic.css");
 });
 
+test("CSSDoc maps @lang and inline <lang> into HIA i18n fields", () => {
+  const artifact = extractCssDoc(`/**
+ * @component .alert
+ * @description Styles a <lang><zh-CN>提示框</zh-CN><en>status alert</en></lang>.
+ * @lang zh-CN 设置提示框样式。
+ * @selector .alert--quiet <l><zh-CN>低强调状态</zh-CN><en>low-emphasis state</en></l>
+ */
+.alert { color: var(--alert-color); }`, { path: "fixtures/lang.css" });
+  const document = cssExtractionToHiaDocument(artifact, { title: "CSS Locale" });
+  const component = document.symbols.find((symbol) => symbol.kind === "css-component-style");
+  const selector = document.symbols.find((symbol) => symbol.kind === "css-selector");
+
+  assert.ok(document.locales.includes("zh-CN"));
+  assert.equal(component.i18n.fields.description.localizedText["zh-CN"], "设置提示框样式。");
+  assert.equal(component.i18n.fields.description.localizedText.en, "Styles a status alert.");
+  assert.equal(selector.i18n.fields.description.localizedText["zh-CN"], "低强调状态");
+  assert.equal(selector.i18n.fields.description.localizedText.en, "low-emphasis state");
+});
+
 test("designTokensToCssExtraction maps DTCG-style token objects", () => {
   const artifact = designTokensToCssExtraction({
     color: {
