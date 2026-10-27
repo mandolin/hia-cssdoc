@@ -60,6 +60,39 @@ test("PostCSS comment and rule ends are inclusive UTF-16 positions", () => {
   assert.notDeepEqual(symbol.source.range.end, positionAt(source, ruleLastOffset, "codepoint"));
 });
 
+// <lang><zh-CN>真实 @media 子树的注释规则也必须从原文独立证明起止列，不能只因目标类别为 rule 就相信写入标签。</zh-CN><en>A commented rule inside a real @media subtree must prove its endpoints against source text, not rely on its rule type alone.</en></lang>
+test("nested PostCSS rule keeps independently measured UTF-16 endpoints", () => {
+  // <lang><zh-CN>CRLF 分行，注释与声明中的非 BMP 字符分别让规则起列和终列区别于码点计数。</zh-CN><en>CRLF separates lines; astral characters in the comment and declaration distinguish both rule columns from code-point counts.</en></lang>
+  const source = "@media screen {\r\n  /** @component Nested 🔥 */.card { content: '🔥'; }\r\n}\r\n";
+  // <lang><zh-CN>使用实际解析及提取链，不手造目标节点或映射引用。</zh-CN><en>Use the actual parser and extraction chain rather than fabricated target nodes or map references.</en></lang>
+  const parsed = parseCss(source, { path: "fixtures/nested.css" });
+  const extraction = extractCssDoc(source, { path: "fixtures/nested.css" });
+  const manifest = createCssDocumentationSourceMap({ extraction });
+  // <lang><zh-CN>原文偏移作为独立真值；PostCSS 的 end.offset 是末字符之后的位置。</zh-CN><en>Source-text offsets are independent expectations; PostCSS end.offset follows the last character.</en></lang>
+  const startOffset = source.indexOf(".card");
+  const endOffset = source.indexOf("}", startOffset);
+  const rule = parsed.root.nodes[0]?.nodes?.[1];
+  const symbol = extraction.symbols.find((item) => item.name === "Nested");
+  const ref = manifest.entries.find((entry) => entry.symbolId === symbol?.id)?.sourceRefs[0];
+
+  assert.equal(parsed.root.nodes[0]?.type, "atrule");
+  assert.equal(rule?.type, "rule");
+  assert.equal(symbol?.metadata.target.type, "rule");
+  assert.equal(extraction.symbols.length, 1);
+  assert.equal(startOffset >= 0 && endOffset > startOffset, true);
+  assert.deepEqual(rule.source.start, { offset: startOffset, ...positionAt(source, startOffset, "utf16") });
+  assert.deepEqual(rule.source.end, { offset: endOffset + 1, ...positionAt(source, endOffset, "utf16") });
+  assert.deepEqual(symbol.source.range, {
+    start: positionAt(source, startOffset, "utf16"),
+    end: positionAt(source, endOffset, "utf16")
+  });
+  assert.deepEqual(ref.range, symbol.source.range);
+  assert.deepEqual(ref.rangeConvention, { endBoundary: "inclusive", columnUnit: "utf16-code-unit" });
+  assert.equal(ref.rangeSourceDetail, "postcss-rule-location");
+  assert.notDeepEqual(ref.range.start, positionAt(source, startOffset, "codepoint"));
+  assert.notDeepEqual(ref.range.end, positionAt(source, endOffset, "codepoint"));
+});
+
 // <lang><zh-CN>同一行相邻节点验证包含式终点停在前一个字符，后继起点前进一列。</zh-CN><en>Adjacent nodes on one line show that an inclusive end stays on the preceding character and the next start advances one column.</en></lang>
 test("adjacent CSSDoc comments and rules keep distinct boundary positions", () => {
   const source = "/** @component Alpha */.a{color:red}/** @component Beta */.b{color:blue}";
