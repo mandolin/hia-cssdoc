@@ -3,7 +3,10 @@ import path from "node:path";
 
 import { cssExtractionToHiaDocument } from "@hia-doc/css-doc-adapter";
 import { extractCssDoc } from "@hia-doc/css-doc-extractor";
-import { createCssDocumentationSourceMap } from "@hia-doc/css-doc-source-map";
+import {
+  CSS_DOC_SOURCE_MAP_CONTRACT_VERSION,
+  createCssDocumentationSourceMap
+} from "@hia-doc/css-doc-source-map";
 import {
   CSSDOC_EXTRACTION_CONTRACT,
   CSSDOC_EXTRACTION_CONTRACT_VERSION
@@ -193,7 +196,7 @@ async function processInput(input, request, index) {
       kind: "doc-source-map",
       path: docSourceMapPath,
       contract: "doc-source-map",
-      contractVersion: "0.1.0-draft",
+      contractVersion: CSS_DOC_SOURCE_MAP_CONTRACT_VERSION,
       language: "json",
       mediaType: "application/json",
       profileIds: request.profileIds

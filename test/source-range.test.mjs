@@ -1,16 +1,19 @@
 /**
  * @file
  * 用真实 PostCSS 节点与 design-token bridge 输出检验 CSSDoc 源码范围边界。
- * 测试只比较当前提取结果，不提升旧版映射工件的契约身份。
+ * 同时检验新版映射逐引用声明已证和未知的范围语义。
  *
- * @lang en Checks CSSDoc source-range boundaries from real PostCSS nodes and the design-token bridge. These tests inspect current extraction without upgrading the legacy map contract.
+ * @lang en Checks CSSDoc source-range boundaries from real PostCSS nodes and the design-token bridge, including proven and unknown per-reference conventions in the new map.
  */
 import assert from "node:assert/strict";
 import test from "node:test";
 
 import { extractCssDoc } from "../packages/css-doc-extractor/src/index.mjs";
 import { parseCss } from "../packages/css-parser/src/index.mjs";
-import { createCssDocumentationSourceMap } from "../packages/css-doc-source-map/src/index.mjs";
+import {
+  CSS_DOC_SOURCE_MAP_CONTRACT_VERSION,
+  createCssDocumentationSourceMap
+} from "../packages/css-doc-source-map/src/index.mjs";
 import { designTokensToCssExtraction } from "../packages/design-token-bridge/src/index.mjs";
 
 /**
@@ -70,8 +73,14 @@ test("adjacent CSSDoc comments and rules keep distinct boundary positions", () =
   assert.equal(firstComment.source.end.column + 1, firstRule.source.start.column);
   assert.equal(firstRule.source.end.column + 1, secondComment.source.start.column);
   assert.equal(secondComment.source.end.column + 1, secondRule.source.start.column);
-  // <lang><zh-CN>写入器目前只透传符号范围；本探针核对数据路径，不把这些坐标自动升级为新契约。</zh-CN><en>The writer currently forwards symbol ranges; this probe checks the data path without automatically upgrading the coordinates to a new contract.</en></lang>
+  // <lang><zh-CN>仅规则范围获得实测的包含式 UTF-16 语义，并与产物契约版本同步。</zh-CN><en>Only probed rule ranges receive inclusive UTF-16 semantics, synchronized with the artifact contract identity.</en></lang>
+  assert.equal(manifest.contractVersion, CSS_DOC_SOURCE_MAP_CONTRACT_VERSION);
   assert.deepEqual(manifest.entries.map((entry) => entry.sourceRefs[0].range), extraction.symbols.map((symbol) => symbol.source.range));
+  for (const entry of manifest.entries) {
+    assert.deepEqual(entry.sourceRefs[0].rangeConvention, { endBoundary: "inclusive", columnUnit: "utf16-code-unit" });
+    assert.equal(entry.sourceRefs[0].rangeSourceDetail, "postcss-rule-location");
+    assert.equal(entry.sourceRefs[0].confidence, "high");
+  }
 });
 
 // <lang><zh-CN>两枚不同 token 共用同一人工坐标，证明该占位值不能证明任一 token 的精确源码边界。</zh-CN><en>Two distinct tokens share one synthetic coordinate, so that placeholder cannot prove either token's exact source boundary.</en></lang>
@@ -91,6 +100,41 @@ test("design-token bridge 1:1 range remains synthetic provenance", () => {
   }
   for (const entry of manifest.entries) {
     assert.equal(entry.sourceRefs[0].rangeSource, "adapter");
+    assert.equal(entry.sourceRefs[0].rangeSourceDetail, "design-token-placeholder");
     assert.deepEqual(entry.sourceRefs[0].range, placeholder);
+    assert.deepEqual(entry.sourceRefs[0].rangeConvention, { endBoundary: "unknown", columnUnit: "unknown" });
+    assert.equal(entry.sourceRefs[0].confidence, "low");
   }
+});
+
+// <lang><zh-CN>声明与 at-rule 尚无末端/列单位实样证明，不能从 parser 来源类别继承规则结论。</zh-CN><en>Declarations and at-rules lack proven endpoint/unit probes and cannot inherit rule semantics from the parser category.</en></lang>
+test("unprobed CSS node kinds declare unknown rather than rule conventions", () => {
+  // <lang><zh-CN>同一小型输入同时触发 at-rule 与声明写入分支。</zh-CN><en>A small input exercises both at-rule and declaration writer branches.</en></lang>
+  const source = "/** @media print */@media print {} .host { /** @cssprop color */ color: red; }";
+  // <lang><zh-CN>原生提取结果保留两种目标类别供逐引用判断。</zh-CN><en>The native extraction retains both target kinds for per-reference decisions.</en></lang>
+  const extraction = extractCssDoc(source, { path: "fixtures/unprobed.css" });
+  // <lang><zh-CN>映射工件必须显式保留未知精度，不得继承规则分支的已证语义。</zh-CN><en>The map must declare unknown precision rather than inherit the proven rule branch.</en></lang>
+  const manifest = createCssDocumentationSourceMap({ extraction });
+
+  assert.deepEqual(extraction.symbols.map((symbol) => symbol.metadata.target.type), ["atrule", "decl"]);
+  for (const entry of manifest.entries) {
+    assert.equal(entry.sourceRefs[0].rangeSource, "parser");
+    assert.equal(entry.sourceRefs[0].rangeSourceDetail, "unproven-css-node-location");
+    assert.deepEqual(entry.sourceRefs[0].rangeConvention, { endBoundary: "unknown", columnUnit: "unknown" });
+    assert.equal(entry.sourceRefs[0].confidence, "medium");
+  }
+});
+
+// <lang><zh-CN>外部提取工件可能缺失节点范围；新版契约只允许两个范围字段一起出现。</zh-CN><en>An external extraction artifact may omit a node range; the new contract allows neither range field in that case.</en></lang>
+test("unranged CSS reference omits both range and convention", () => {
+  // <lang><zh-CN>先获得结构正常的提取工件，再仅移除一个符号的来源范围。</zh-CN><en>Start with a structurally normal extraction, then remove just one symbol's source range.</en></lang>
+  const extraction = extractCssDoc("/** @component Missing */.missing{}", { path: "fixtures/missing.css" });
+  const symbol = extraction.symbols[0];
+  const modified = { ...extraction, symbols: [{ ...symbol, source: { ...symbol.source, range: undefined } }] };
+  // <lang><zh-CN>检查实际写出对象的自有字段，而非仅比较 JSON 序列化后的省略效果。</zh-CN><en>Check own fields on the actual output object, not just JSON serialization omission.</en></lang>
+  const sourceRef = createCssDocumentationSourceMap({ extraction: modified }).entries[0].sourceRefs[0];
+
+  assert.equal(Object.hasOwn(sourceRef, "range"), false);
+  assert.equal(Object.hasOwn(sourceRef, "rangeConvention"), false);
+  assert.equal(sourceRef.confidence, "medium");
 });

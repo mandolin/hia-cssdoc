@@ -120,7 +120,7 @@ inheritance and maps `$root` tokens to the group path.
 - CSSDoc extraction contract `0.1.0-draft`.
 - CSSDoc config schema `0.1.0-draft`.
 - documentation producer contract `0.1.0-draft`.
-- doc-source-map contract `0.1.0-draft`.
+- doc-source-map contract `1.1.0` (source definition remains draft). Proven PostCSS rule ranges use inclusive UTF-16 columns; unprobed CSS nodes and synthetic design-token ranges declare unknown endpoint and unit.
 
 ## Development
 

@@ -6,6 +6,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import cssdocProducer, { cssdocProducerDescriptor } from "../packages/cssdoc-producer/src/index.mjs";
+import { CSS_DOC_SOURCE_MAP_CONTRACT_VERSION } from "../packages/css-doc-source-map/src/index.mjs";
 import {
   CSSDOC_CONFIG_JSON_SCHEMA,
   CSSDOC_CONFIG_SCHEMA_ID,
@@ -41,6 +42,11 @@ test("standalone runner handles CSS, PostCSS and design-token inputs", async () 
     assert.ok(tokenArtifact.symbols.some((symbol) => symbol.name === "color" && symbol.metadata.type === "color"));
     assert.ok(tokenArtifact.symbols.some((symbol) => symbol.name === "color.action" && symbol.metadata.type === "color"));
     assert.deepEqual(docMap.pathBases, { artifacts: "outputDirectory", sources: "workspaceRoot" });
+    assert.equal(docMap.contractVersion, CSS_DOC_SOURCE_MAP_CONTRACT_VERSION);
+    assert.ok(result.artifacts.filter((artifact) => artifact.kind === "doc-source-map")
+      .every((artifact) => artifact.contractVersion === docMap.contractVersion));
+    assert.ok(docMap.entries.every((entry) => entry.sourceRefs.every((sourceRef) =>
+      Object.hasOwn(sourceRef, "range") === Object.hasOwn(sourceRef, "rangeConvention"))));
     assert.equal(docMap.privacy.sourcesContentPolicy, "none");
     assert.equal(JSON.stringify(manifest).includes(outputDirectory), false);
   } finally {

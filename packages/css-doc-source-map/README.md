@@ -15,3 +15,9 @@ const manifest = createCssDocumentationSourceMap({
 
 Source paths are workspace-relative, artifact paths are output-relative and
 source content is not embedded by default.
+
+The writer emits `doc-source-map@1.1.0`. Each ranged source reference carries
+`rangeConvention`. Only PostCSS rule locations with verified columns declare
+`inclusive` and `utf16-code-unit`; declarations, at-rules and design-token
+placeholder ranges declare `unknown` for both fields. Missing ranges omit the
+convention. The contract identity is independent of the npm package version.
