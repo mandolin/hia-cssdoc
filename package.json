@@ -13,7 +13,7 @@
     "release:check": "node scripts/release-check.cjs",
     "release:gate": "npm run check:syntax && npm run smoke:standalone && npm run check:skeleton && npm run check:standalone && npm run license:audit && npm test && npm run release:check && npm run pack:check",
     "smoke:standalone": "cssdoc --config examples/standalone/cssdoc.config.json",
-    "test": "node --test test/cssdoc.test.mjs test/cssdoc-runner.test.mjs",
+    "test": "node --test test/cssdoc.test.mjs test/cssdoc-runner.test.mjs test/source-range.test.mjs",
     "test:all": "npm run release:gate"
   },
   "workspaces": [
