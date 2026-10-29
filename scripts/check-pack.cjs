@@ -54,6 +54,15 @@ for (const packageRoot of packageRoots) {
     console.error("Missing src/cli.mjs in @hia-doc/cssdoc-runner pack dry-run.");
     failed = true;
   }
+  // <lang><zh-CN>适配器精度、输入所有权与迁移责任必须随实际包提供，不能只留在仓库根。</zh-CN><en>Adapter precision, input ownership and migration responsibilities must ship in its package, not only at the repository root.</en></lang>
+  if (packageJson.name === "@hia-doc/css-doc-adapter") {
+    for (const document of ["API.md", "MIGRATION.md"]) {
+      if (!packedPaths.has(document)) {
+        console.error(`Missing ${document} in CSS Doc Adapter pack dry-run.`);
+        failed = true;
+      }
+    }
+  }
   // <lang><zh-CN>包声明的四JSON入口必须实际随包，根对象不能掩盖资源缺失。</zh-CN><en>The four declared JSON entries must ship; root schema objects cannot hide missing resources.</en></lang>
   for (const [entry, target] of Object.entries(packageJson.exports ?? {})) {
     if (entry.endsWith(".schema.json") && !packedPaths.has(target.replace(/^\.\//, ""))) {

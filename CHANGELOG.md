@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased — Original source fragments
+
+- Slice proven PostCSS rule fragments at inclusive UTF-16 coordinates from the
+  original text. Preserve CRLF, standalone CR, tabs and whitespace without
+  including same-line neighbors; index source lines once per conversion.
+- Retain references without fabricated fragments for unproven, partial,
+  reversed, out-of-bounds or foreign-source ranges. Report design-token source
+  language as JSON. Existing exact old/current readers and map rules remain.
+- Ship adapter API/compatibility responsibilities and check them in pack output.
+- 中文：修复片段整行截取和虚假精度，补随包责任文档；包版本/private未变，
+  不代表八包最终候选通过或 npm 发布。
+
 ## Unreleased — Coordinated CSS contracts
 
 - Add extraction/config/artifact profile `1.0.0`, exact legacy JSON reading,
