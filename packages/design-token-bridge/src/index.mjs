@@ -46,11 +46,12 @@ function collectTokens(node, pathParts, symbols, sourcePath, inheritedType) {
   }
   if (Object.hasOwn(node, "$value")) {
     const name = pathParts.join(".") || "root";
+    // <lang><zh-CN>未提供描述时省略字段，保持真实JSON对象和既有字符串schema。</zh-CN><en>Omit an absent description to retain a real JSON object and the existing string schema.</en></lang>
     symbols.push({
       id: `token:${slug(name)}`,
       kind: CSSDOC_SYMBOL_KINDS.designToken,
       name,
-      summary: node.$description || undefined,
+      ...(node.$description ? { summary: node.$description } : {}),
       source: {
         path: sourcePath,
         range: {

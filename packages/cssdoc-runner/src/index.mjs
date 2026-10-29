@@ -16,9 +16,13 @@ import { designTokensToCssExtraction } from "@hia-doc/design-token-bridge";
 export {
   CSSDOC_CONFIG_JSON_SCHEMA,
   CSSDOC_CONFIG_SCHEMA_ID,
-  CSSDOC_CONFIG_SCHEMA_VERSION
+  CSSDOC_CONFIG_SCHEMA_VERSION,
+  CSSDOC_LEGACY_CONFIG_JSON_SCHEMA,
+  CSSDOC_LEGACY_CONFIG_SCHEMA_ID,
+  CSSDOC_LEGACY_CONFIG_SCHEMA_VERSION
 } from "./schema.mjs";
-import { CSSDOC_CONFIG_SCHEMA_ID, CSSDOC_CONFIG_SCHEMA_VERSION } from "./schema.mjs";
+import { validateCssDocConfigForReading } from "./config-compatibility.mjs";
+export { getCssDocConfigSchema, migrateCssDocConfig } from "./config-compatibility.mjs";
 
 export const CSSDOC_RUNNER_VERSION = "0.0.0";
 export const CSSDOC_INPUT_KINDS = Object.freeze([
@@ -118,8 +122,8 @@ export async function runCssDoc(request, context = {}) {
 /**
  * @param {string} configPath <lang><zh-CN>配置定位器；相对cwd。</zh-CN><en>Config locator relative to cwd.</en></lang>
  * @param {{cwd?:string}} [options] <lang><zh-CN>默认process.cwd，仅内存绝对路径。</zh-CN><en>Defaults to process.cwd; absolute paths remain in memory.</en></lang>
- * @returns {Promise<object>} <lang><zh-CN>旧0.1.0-draft配置加载；历史目录/后缀默认保持，不写文件。</zh-CN><en>Legacy0.1.0-draft config load preserving historical directory/suffix defaults without writes.</en></lang>
- * @throws {TypeError} <lang><zh-CN>读/解析/字段失败，固定公开错误；旧schema的required冲突另行迁移。</zh-CN><en>Read/parse/field failures use fixed public errors; legacy required conflicts require separate migration.</en></lang>
+ * @returns {Promise<object>} <lang><zh-CN>精确旧0.1.0-draft/新1.0.0配置加载；历史目录/后缀默认保持，不写文件。</zh-CN><en>Exact legacy0.1.0-draft/current1.0.0 config load preserving historical directory/suffix defaults without writes.</en></lang>
+ * @throws {TypeError} <lang><zh-CN>读/解析/字段失败，固定公开错误；旧schema的required原样保留，纯迁移另有显式入口。</zh-CN><en>Read/parse/field failures use fixed public errors; legacy required remains unchanged and pure migration has an explicit entry.</en></lang>
  */
 export async function loadCssDocConfig(configPath, options = {}) {
   // <lang><zh-CN>绝对配置位置只用于读取，不进入结果或公开异常。</zh-CN><en>The absolute config location is used for reads only, never public results or errors.</en></lang>
@@ -131,14 +135,7 @@ export async function loadCssDocConfig(configPath, options = {}) {
   } catch {
     throw new TypeError("Unable to read or parse CSSDoc config JSON.");
   }
-  assertRecord(config, "CSSDoc config must be a JSON object.");
-  assertKnownKeys(config, ["$schema", "schemaVersion", "workspaceRoot", "outputDirectory", "inputs", "options", "profileIds"], "config");
-  if (config.schemaVersion !== CSSDOC_CONFIG_SCHEMA_VERSION) {
-    throw new TypeError(`schemaVersion must be ${CSSDOC_CONFIG_SCHEMA_VERSION}.`);
-  }
-  if (config.$schema !== undefined && config.$schema !== CSSDOC_CONFIG_SCHEMA_ID) {
-    throw new TypeError(`$schema must be ${CSSDOC_CONFIG_SCHEMA_ID}.`);
-  }
+  validateCssDocConfigForReading(config);
 
   // <lang><zh-CN>历史配置位置关系：工作根相对配置，输出相对工作根；绝对解析仅保存在内存。</zh-CN><en>Historical bases: workspace relative to config, output relative to workspace; absolute resolutions stay in memory.</en></lang>
   const configDirectory = path.dirname(absoluteConfigPath);

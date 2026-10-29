@@ -16,7 +16,9 @@ The initial specification work targets one CSSDoc language specification:
 - unprefixed core tags such as `@cssdoc`, `@component`, `@selector`, `@cssprop` and `@token`
 - tag status records for CSSDOC 0.2.22 tags, including retained, modernized, legacy and deprecated tags
 
-The package also exports the draft extraction artifact schema constants:
+The package also exports the versioned extraction artifact schema constants:
 
 - `CSSDOC_EXTRACTION_SCHEMA_ID`
 - `CSSDOC_EXTRACTION_JSON_SCHEMA`
+
+Current extraction/artifact profile is `1.0.0`. Exact old JSON readers, schema selectors, validation and pure migration are documented in [MIGRATION.md](MIGRATION.md).

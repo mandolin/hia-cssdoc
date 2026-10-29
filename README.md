@@ -49,7 +49,7 @@ Minimal config:
 
 ```json
 {
-  "schemaVersion": "0.1.0-draft",
+  "schemaVersion": "1.0.0",
   "workspaceRoot": ".",
   "outputDirectory": "dist/cssdoc",
   "inputs": [
@@ -127,8 +127,8 @@ inheritance and maps `$root` tokens to the group path.
 - CI release gates cover Node.js 22.23.4 and 24.22.1 on Windows and Ubuntu.
 - PostCSS `8.5.16`.
 - Design Tokens Format Module `2025.10`.
-- CSSDoc extraction contract `0.1.0-draft`.
-- CSSDoc config schema `0.1.0-draft`.
+- CSSDoc extraction/artifact profile `1.0.0`, with exact `0.1.0-draft` JSON reading.
+- CSSDoc config schema `1.0.0`, preserving the exact original old schema.
 - documentation producer descriptor/result contracts `1.0.0`.
 - doc-source-map contract `1.1.0` (source definition remains draft). Proven PostCSS rule ranges use inclusive UTF-16 columns; unprobed CSS nodes and synthetic design-token ranges declare unknown endpoint and unit.
 
@@ -153,10 +153,12 @@ their raw values. The CLI reports a fixed failure message and exit code 1 for
 argument/configuration failures; it does not print filesystem paths or stacks.
 Relative locators are checked lexically, without a symlink containment claim.
 
-The config schema remains `0.1.0-draft`. Its historical `required` list differs
-from loader defaults for directories and input kind; this mismatch remains an
-explicit compatibility limitation pending a separately versioned migration.
-The adapter is a supported-subset converter, not a complete extraction schema
-validator or arbitrary future-version reader. The DTCG bridge preserves the
+The config/extraction/artifact profile contracts now use `1.0.0` with exact
+legacy JSON reading, preserved old schemas and explicit pure migration.
+The new config schema matches historical directory/kind defaults; the old
+schema retains its original required list. The adapter and map reader reject
+unsupported identities and invalid structures. See [MIGRATION.md](MIGRATION.md)
+for APIs, ownership, non-JSON refusal and four bundled schema exports.
+The DTCG bridge preserves the
 documented token/group subset without resolving references or validating every
 DTCG value. See the [runner contract](packages/cssdoc-runner/README.md).

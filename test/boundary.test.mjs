@@ -86,14 +86,14 @@ test("config read failure does not echo private locator", async () => {
   await assert.rejects(loadCssDocConfig("private-sentinel-missing.json", { cwd: root }), (error) => !error.message.includes("private-sentinel"));
 });
 test("producer adopts approved 1.0.0 descriptor", () => assert.equal(producer.descriptor.contractVersion, "1.0.0"));
-test("runner adopts approved result identity and preserves legacy CSS extraction", async () => {
+test("runner adopts approved result identity and emits the coordinated CSS extraction", async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "cssdoc-boundary-"));
   try {
     const result = await producer.produce({ ...request, outputDirectory: directory });
     assert.equal(result.status, "success");
     assert.equal(result.contractVersion, "1.0.0");
     const extraction = JSON.parse(await readFile(path.join(directory, result.artifacts[0].path), "utf8"));
-    assert.equal(extraction.contractVersion, "0.1.0-draft");
+    assert.equal(extraction.contractVersion, "1.0.0");
   } finally {
     await rm(directory, { recursive: true, force: true });
   }

@@ -182,11 +182,12 @@ function createSymbolFromAnnotation(annotation, target, comment, block, usedIds,
   const i18n = annotation.tag === "component"
     ? createDescriptionI18n(summary, block.annotations, defaultLocale, "cssdoc.comment")
     : createDescriptionI18n(summary, [], defaultLocale, `cssdoc.${annotation.tag}`);
+  // <lang><zh-CN>新工件省略缺省摘要，不生成非JSON的undefined属性；不放宽null。</zh-CN><en>New artifacts omit absent summaries rather than creating non-JSON undefined properties; null is not widened.</en></lang>
   const symbol = {
     id,
     kind,
     name,
-    summary: i18n?.fields.description?.defaultText ?? summary,
+    ...((i18n?.fields.description?.defaultText ?? summary) === undefined ? {} : { summary: i18n?.fields.description?.defaultText ?? summary }),
     source: target.source,
     annotation: toAnnotationRange(comment),
     metadata: {

@@ -158,12 +158,12 @@ test("unprobed CSS node kinds declare unknown rather than rule conventions", () 
   }
 });
 
-// <lang><zh-CN>外部提取工件可能缺失节点范围；新版契约只允许两个范围字段一起出现。</zh-CN><en>An external extraction artifact may omit a node range; the new contract allows neither range field in that case.</en></lang>
+// <lang><zh-CN>提取schema用null表示未知范围；映射只允许两个范围字段一起出现。</zh-CN><en>The extraction schema uses null for an unknown range; the map allows neither range field in that case.</en></lang>
 test("unranged CSS reference omits both range and convention", () => {
   // <lang><zh-CN>先获得结构正常的提取工件，再仅移除一个符号的来源范围。</zh-CN><en>Start with a structurally normal extraction, then remove just one symbol's source range.</en></lang>
   const extraction = extractCssDoc("/** @component Missing */.missing{}", { path: "fixtures/missing.css" });
   const symbol = extraction.symbols[0];
-  const modified = { ...extraction, symbols: [{ ...symbol, source: { ...symbol.source, range: undefined } }] };
+  const modified = { ...extraction, symbols: [{ ...symbol, source: { ...symbol.source, range: null } }] };
   // <lang><zh-CN>检查实际写出对象的自有字段，而非仅比较 JSON 序列化后的省略效果。</zh-CN><en>Check own fields on the actual output object, not just JSON serialization omission.</en></lang>
   const sourceRef = createCssDocumentationSourceMap({ extraction: modified }).entries[0].sourceRefs[0];
 

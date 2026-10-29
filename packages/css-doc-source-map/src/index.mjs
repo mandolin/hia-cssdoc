@@ -1,3 +1,4 @@
+import { validateCssDocExtraction } from "@hia-doc/cssdoc-spec";
 export const CSS_DOC_SOURCE_CONTENT_POLICIES = Object.freeze(["none", "reference", "embed"]);
 /**
  * 当前 CSSDoc 映射写入器所发出的文档源码映射契约身份。
@@ -33,8 +34,8 @@ export function normalizeSourcesContentPolicy(policy) {
  */
 export function createCssDocumentationSourceMap(options = {}) {
   const extraction = options.extraction;
-  if (!extraction || extraction.contract !== "hia-cssdoc-extraction") {
-    throw new Error("Expected hia-cssdoc-extraction artifact.");
+  if (validateCssDocExtraction(extraction).length) {
+    throw new TypeError("Unsupported or invalid CSSDoc extraction.");
   }
 
   const extractionPath = normalizeSafePath(options.extractionPath ?? "document.cssdoc.json");

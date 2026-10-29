@@ -1,7 +1,20 @@
+/** @lang zh-CN 提取工件中性身份，与包及主SDK版本独立。 @lang en Neutral extraction identity independent of package and main SDK versions. */
 export const CSSDOC_EXTRACTION_CONTRACT = "hia-cssdoc-extraction";
-export const CSSDOC_EXTRACTION_CONTRACT_VERSION = "0.1.0-draft";
-export const CSSDOC_EXTRACTION_SCHEMA_ID = "https://hia-doc.local/schema/hia-cssdoc-extraction-0.1.0-draft.json";
-export const CSSDOC_PROFILE_VERSION = "0.1.0-draft";
+/** @lang zh-CN 确认B的新wire版本，旧版精确读取另保留。 @lang en Confirmed B wire version with exact legacy reading retained separately. */
+export const CSSDOC_EXTRACTION_CONTRACT_VERSION = "1.0.0";
+/** @lang zh-CN 公开schema身份，不执行网络读取。 @lang en Public schema identity without network reads. */
+export const CSSDOC_EXTRACTION_SCHEMA_ID = "https://mandolin.github.io/HIA-Documentation/schemas/hia-cssdoc-extraction-1.0.0.schema.json";
+/** @lang zh-CN 现有CSS/DTCG子集的工件profile身份，不等于官方七规范版本。 @lang en Artifact profile identity for the existing CSS/DTCG subset, distinct from the seven official profile specification versions. */
+export const CSSDOC_PROFILE_VERSION = "1.0.0";
+
+/** @lang zh-CN 旧模块原字节档案与精确读取/纯迁移入口。 @lang en Original legacy module archive and exact reading/pure migration entries. */
+export {
+  CSSDOC_EXTRACTION_JSON_SCHEMA as CSSDOC_LEGACY_EXTRACTION_JSON_SCHEMA,
+  CSSDOC_EXTRACTION_SCHEMA_ID as CSSDOC_LEGACY_EXTRACTION_SCHEMA_ID,
+  CSSDOC_EXTRACTION_CONTRACT_VERSION as CSSDOC_LEGACY_EXTRACTION_CONTRACT_VERSION,
+  CSSDOC_PROFILE_VERSION as CSSDOC_LEGACY_PROFILE_VERSION
+} from "./schema-legacy.mjs";
+export { getCssDocExtractionSchema, validateCssDocExtraction, migrateCssDocExtraction } from "./compatibility.mjs";
 
 export const CSSDOC_SYMBOL_KINDS = Object.freeze({
   componentStyle: "css-component-style",
@@ -31,123 +44,10 @@ export const CSSDOC_TAGS = Object.freeze([
   "lang"
 ]);
 
-export const CSSDOC_EXTRACTION_JSON_SCHEMA = Object.freeze({
-  $schema: "https://json-schema.org/draft/2020-12/schema",
-  $id: CSSDOC_EXTRACTION_SCHEMA_ID,
-  type: "object",
-  required: ["contract", "contractVersion", "producer", "profile", "source", "symbols", "annotations", "diagnostics", "sourceMap"],
-  additionalProperties: true,
-  properties: {
-    contract: { const: CSSDOC_EXTRACTION_CONTRACT },
-    contractVersion: { const: CSSDOC_EXTRACTION_CONTRACT_VERSION },
-    producer: { $ref: "#/$defs/producer" },
-    profile: { $ref: "#/$defs/profile" },
-    source: { $ref: "#/$defs/source" },
-    symbols: {
-      type: "array",
-      items: { $ref: "#/$defs/symbol" }
-    },
-    annotations: {
-      type: "array",
-      items: { type: "object" }
-    },
-    diagnostics: {
-      type: "array",
-      items: { $ref: "#/$defs/diagnostic" }
-    },
-    sourceMap: { type: "object" },
-    metadata: { type: "object" }
-  },
-  $defs: {
-    nonEmptyString: { type: "string", minLength: 1 },
-    producer: {
-      type: "object",
-      required: ["name", "version"],
-      additionalProperties: true,
-      properties: {
-        name: { $ref: "#/$defs/nonEmptyString" },
-        version: { $ref: "#/$defs/nonEmptyString" }
-      }
-    },
-    profile: {
-      type: "object",
-      required: ["name", "version"],
-      additionalProperties: true,
-      properties: {
-        name: { $ref: "#/$defs/nonEmptyString" },
-        version: { $ref: "#/$defs/nonEmptyString" }
-      }
-    },
-    source: {
-      type: "object",
-      required: ["kind", "path"],
-      additionalProperties: true,
-      properties: {
-        kind: { $ref: "#/$defs/nonEmptyString" },
-        path: { $ref: "#/$defs/nonEmptyString" },
-        sourcesContent: { type: "string" }
-      }
-    },
-    sourcePosition: {
-      type: "object",
-      required: ["line"],
-      additionalProperties: true,
-      properties: {
-        line: { type: "integer", minimum: 1 },
-        column: { type: "integer", minimum: 1 }
-      }
-    },
-    sourceRange: {
-      anyOf: [
-        { type: "null" },
-        {
-          type: "object",
-          required: ["start"],
-          additionalProperties: true,
-          properties: {
-            start: { $ref: "#/$defs/sourcePosition" },
-            end: { $ref: "#/$defs/sourcePosition" }
-          }
-        }
-      ]
-    },
-    symbol: {
-      type: "object",
-      required: ["id", "kind", "name", "source"],
-      additionalProperties: true,
-      properties: {
-        id: { $ref: "#/$defs/nonEmptyString" },
-        kind: { enum: Object.values(CSSDOC_SYMBOL_KINDS) },
-        name: { $ref: "#/$defs/nonEmptyString" },
-        parentId: { $ref: "#/$defs/nonEmptyString" },
-        summary: { type: "string" },
-        source: {
-          type: "object",
-          required: ["path", "range"],
-          additionalProperties: true,
-          properties: {
-            path: { $ref: "#/$defs/nonEmptyString" },
-            range: { $ref: "#/$defs/sourceRange" }
-          }
-        },
-        annotation: { type: "object" },
-        metadata: { type: "object" }
-      }
-    },
-    diagnostic: {
-      type: "object",
-      required: ["code", "message", "severity"],
-      additionalProperties: true,
-      properties: {
-        code: { $ref: "#/$defs/nonEmptyString" },
-        message: { $ref: "#/$defs/nonEmptyString" },
-        severity: { enum: ["info", "warning", "error"] },
-        path: { $ref: "#/$defs/nonEmptyString" },
-        data: { type: "object" }
-      }
-    }
-  }
-});
+/** @lang zh-CN 新1.0.0固定schema；保留扩展和原字符串类型，不扩大nullable或CSS语法。 @lang en Fixed1.0.0 schema preserving extensions and original string types, without broader nullable or CSS syntax. */
+import currentExtractionSchema from "./schemas/hia-cssdoc-extraction-1.0.0.schema.json" with { type: "json" };
+/** @lang zh-CN 随包固定schema对象，与JSON子路径内容一致；不填默认、不改输入。 @lang en Fixed bundled schema object matching the JSON subpath, without defaults or input mutation. */
+export const CSSDOC_EXTRACTION_JSON_SCHEMA = Object.freeze(currentExtractionSchema);
 
 const TAG_TO_KIND = Object.freeze({
   component: CSSDOC_SYMBOL_KINDS.componentStyle,

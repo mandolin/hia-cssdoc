@@ -10,3 +10,5 @@ and npm availability remain separate. The repository default is Node.js 24.22.1.
 
 
 Converts CSSDoc extraction artifacts into HIA core documents.
+
+Current writers/readers coordinate `hia-cssdoc-extraction@1.0.0` with exact `0.1.0-draft` JSON compatibility; unsupported or invalid reader inputs fail. See the repository migration guide for structure and source-precision limits.

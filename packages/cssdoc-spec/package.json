@@ -6,14 +6,20 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-    ".": "./src/index.mjs"
+    ".": "./src/index.mjs",
+    "./schemas/hia-cssdoc-extraction-0.1.0-draft.schema.json": "./src/schemas/hia-cssdoc-extraction-0.1.0-draft.schema.json",
+    "./schemas/hia-cssdoc-extraction-1.0.0.schema.json": "./src/schemas/hia-cssdoc-extraction-1.0.0.schema.json"
   },
   "engines": {
     "node": "^22.23.4 || ^24.22.1"
   },
   "files": [
-    "src",
+    "LICENSE",
+    "MIGRATION.md",
     "README.md",
-    "LICENSE"
-  ]
+    "src"
+  ],
+  "dependencies": {
+    "ajv": "8.17.1"
+  }
 }

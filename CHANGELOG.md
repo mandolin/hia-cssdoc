@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased — Coordinated CSS contracts
+
+- Add extraction/config/artifact profile `1.0.0`, exact legacy JSON reading,
+  original schema archives, four schema JSON exports and explicit pure,
+  lossless migration APIs. Current readers reject unknown or invalid inputs.
+- Align the new config required list with existing loader defaults. Keep the
+  historical schema and document its difference from compatible old reading.
+- Validate local bundled schemas with pinned Ajv; preserve original parser
+  dependency identities and source precision declarations.
+- 中文：按确认方案协调自有三项身份，保持旧读和无损迁移；包仍private0.0.0，
+  本项不声明npm发布或全部CSS/DTCG语法支持。
+
 ## Unreleased — Declared boundaries and producer contracts
 
 - Enforce declared boolean/language/profile constraints, refuse inherited tag
