@@ -161,8 +161,12 @@ const TAG_TO_KIND = Object.freeze({
   keyframes: CSSDOC_SYMBOL_KINDS.keyframes
 });
 
+/**
+ * @param {string} tag <lang><zh-CN>规范化标签；不调用用户类型转换。</zh-CN><en>Canonical tag without invoking caller coercion.</en></lang>
+ * @returns {string|null} <lang><zh-CN>显式自有种类，未知/原型/非字符串为null。</zh-CN><en>Explicit own kind; unknown, prototype and nonstring values return null.</en></lang>
+ */
 export function getCssDocSymbolKind(tag) {
-  return TAG_TO_KIND[tag] ?? null;
+  return typeof tag === "string" && Object.hasOwn(TAG_TO_KIND, tag) ? TAG_TO_KIND[tag] : null;
 }
 
 export function isCssDocTag(tag) {

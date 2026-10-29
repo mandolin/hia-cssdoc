@@ -14,9 +14,10 @@ export function createCssDocSourceMapRef(options = {}) {
   };
 }
 
+/** @param {string} policy <lang><zh-CN>精确none/reference/embed。</zh-CN><en>Exact none/reference/embed.</en></lang> @returns {string} <lang><zh-CN>同一有效策略。</zh-CN><en>The same valid policy.</en></lang> @throws {TypeError} <lang><zh-CN>固定拒绝，不打印原文。</zh-CN><en>Fixed refusal without raw text.</en></lang> */
 export function normalizeSourcesContentPolicy(policy) {
   if (!CSS_DOC_SOURCE_CONTENT_POLICIES.includes(policy)) {
-    throw new Error(`Unsupported CSSDoc sourcesContent policy: ${policy}`);
+    throw new TypeError("Unsupported CSSDoc sourcesContent policy.");
   }
   return policy;
 }
@@ -188,10 +189,11 @@ function createCssSourceRef(symbol, extraction, sourceId) {
   };
 }
 
+/** @param {string} value <lang><zh-CN>映射相对定位器。</zh-CN><en>Relative map locator.</en></lang> @returns {string} <lang><zh-CN>词法安全路径。</zh-CN><en>Lexically safe path.</en></lang> @throws {TypeError} <lang><zh-CN>固定失败不回显。</zh-CN><en>Fixed failure without echo.</en></lang> */
 function normalizeSafePath(value) {
   const normalized = String(value).replaceAll("\\", "/");
   if (!normalized || normalized.startsWith("/") || /^[A-Za-z][A-Za-z0-9+.-]*:/.test(normalized) || normalized.split("/").includes("..")) {
-    throw new Error(`Unsafe doc-source-map path: ${value}`);
+    throw new TypeError("Unsafe doc-source-map path.");
   }
   return normalized;
 }

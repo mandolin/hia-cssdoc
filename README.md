@@ -31,7 +31,8 @@ Core annotations use unprefixed tags such as `@component`, `@selector`,
 
 ## Standalone CLI
 
-The packages are currently local release candidates. From a source checkout:
+The eight packages are private source packages at `0.0.0`; registry publication
+and `1.0.0` package qualification are not complete. From a source checkout:
 
 ```sh
 npm install
@@ -78,7 +79,7 @@ const result = await runCssDoc({
 });
 ```
 
-The result follows `documentation-producer-result@0.1.0-draft`. Artifact paths
+The current result follows `documentation-producer-result@1.0.0`. Artifact paths
 are relative to `outputDirectory` and can be consumed without exposing runtime
 absolute paths.
 
@@ -128,7 +129,7 @@ inheritance and maps `$root` tokens to the group path.
 - Design Tokens Format Module `2025.10`.
 - CSSDoc extraction contract `0.1.0-draft`.
 - CSSDoc config schema `0.1.0-draft`.
-- documentation producer contract `0.1.0-draft`.
+- documentation producer descriptor/result contracts `1.0.0`.
 - doc-source-map contract `1.1.0` (source definition remains draft). Proven PostCSS rule ranges use inclusive UTF-16 columns; unprobed CSS nodes and synthetic design-token ranges declare unknown endpoint and unit.
 
 ## Development
@@ -142,3 +143,20 @@ npm run release:gate
 
 MIT. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for reviewed parser
 dependencies.
+
+## Validation and public failures
+
+The runner validates declared booleans, nonempty input languages and unique
+profile identifiers before creating output. Explicit `null` is not omission.
+Unknown fields/kinds and unsafe source locators are rejected without echoing
+their raw values. The CLI reports a fixed failure message and exit code 1 for
+argument/configuration failures; it does not print filesystem paths or stacks.
+Relative locators are checked lexically, without a symlink containment claim.
+
+The config schema remains `0.1.0-draft`. Its historical `required` list differs
+from loader defaults for directories and input kind; this mismatch remains an
+explicit compatibility limitation pending a separately versioned migration.
+The adapter is a supported-subset converter, not a complete extraction schema
+validator or arbitrary future-version reader. The DTCG bridge preserves the
+documented token/group subset without resolving references or validating every
+DTCG value. See the [runner contract](packages/cssdoc-runner/README.md).

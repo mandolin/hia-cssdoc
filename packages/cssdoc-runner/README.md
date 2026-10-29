@@ -35,3 +35,45 @@ cssdoc --config cssdoc.config.json
 
 Source content is not embedded unless `sourcesContentPolicy: "embed"` is set
 explicitly in the config `options` object.
+# Request, configuration and result contract
+
+Current source emits `documentation-producer-result@1.0.0`. The producer
+descriptor uses `documentation-producer@1.0.0`; these identities are independent
+of the private package version `0.0.0` and CSSDoc extraction/config/profile
+`0.1.0-draft`.
+
+`runCssDoc(request, context?)` requires absolute `workspaceRoot` and
+`outputDirectory`, and a nonempty `inputs` array of safe relative `path`s.
+Kinds are `css`, `postcss-css`, `design-token`. Omitted kinds use suffix
+inference: `.json` means design tokens, `.pcss`/`.postcss.css` means PostCSS,
+otherwise CSS. An optional language must be a nonempty string. Unknown input
+fields are refused; explicit null is not omission.
+
+Options: `emitDocSourceMap` and `writeResultManifest` are booleans defaulting
+to true; `sourcesContentPolicy` is `none` (default), `reference` or `embed`.
+`profileIds` defaults to `["cssdoc"]` and must be nonempty, unique lowercase
+identifiers. Runtime roots stay in memory. Output files and result locators
+are relative to `outputDirectory`. The runner creates directories and writes
+JSON artifacts, plus `cssdoc.producer-result.json` unless disabled. Writes are
+not transactional; failed inputs may leave files, and per-input diagnostics
+produce `partial` or `failed` results. `context.signal` is checked before each
+input; synchronous `reportProgress` errors propagate. Input/profile arrays
+are normalized into new arrays. No discovery, watch, incremental or symlink
+sandbox is provided.
+
+`loadCssDocConfig(path, {cwd}?)` reads JSON relative to cwd (process cwd by
+default), then resolves `workspaceRoot` relative to the configuration file
+and `outputDirectory` relative to that workspace. Historical defaults are
+`.` and `dist/cssdoc`; this differs from the old schema's required list.
+The old schema is retained; a future contract migration must name the changed
+boundary. Reads/parsing failures produce a fixed TypeError without raw paths
+or configuration text. Invalid declared fields are rejected before writes.
+
+The `cssdoc` CLI supports `--config`, positional inputs, `--kind`, `--out-dir`,
+`--workspace-root`, `--sources-content-policy`, `--no-doc-source-map`, `--help`
+and `--version`. Config and argument failures return exit code 1 with a fixed
+public stderr message; successful help/version return 0. Partial/failed builds
+also return 1. API users receive structured diagnostics for build failures.
+
+中文：本页声明现有 API 的默认值、所有权、写入/回调副作用与失败限制；主 SDK
+身份已采用，自有旧 schema 的必需字段冲突待版本化迁移，不据此声称全部候选稳定。

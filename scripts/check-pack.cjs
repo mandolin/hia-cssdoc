@@ -41,7 +41,8 @@ for (const packageRoot of packageRoots) {
       failed = true;
     }
   }
-  if (packageJson.name === "@hia-doc/cssdoc-runner" || packageJson.name === "@hia-doc/cssdoc-producer") {
+  // <lang><zh-CN>八包均须实际包含许可与入口，不只检查两个runner包。</zh-CN><en>All eight packages must carry licenses and entries, not just the two runner packages.</en></lang>
+  {
     for (const requiredPath of ["LICENSE", "README.md", "package.json", "src/index.mjs"]) {
       if (!packedPaths.has(requiredPath)) {
         console.error(`Missing ${requiredPath} in ${packageJson.name} pack dry-run.`);
