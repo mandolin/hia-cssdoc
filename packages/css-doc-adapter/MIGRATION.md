@@ -14,6 +14,10 @@ locations, synthetic token locations, foreign source paths and out-of-bounds or
 reversed ranges retain references but do not produce an alleged exact fragment.
 Design-token references report JSON language. No source is fetched to fill a gap.
 
+Absent optional `parentId`, `summary` and reference `range` properties are omitted
+instead of assigned `undefined`, allowing the in-memory result to satisfy the
+core ordinary-JSON boundary before any file serialization.
+
 The output remains a shallow projection with shared nested i18n, range, diagnostic
 and metadata objects. Clone before mutating output. For complete ownership,
 defaults, errors, source precision and privacy responsibilities, see [API](API.md).

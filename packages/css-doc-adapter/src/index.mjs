@@ -72,13 +72,15 @@ function mapSymbol(symbol, artifact, sourceLines) {
     : null;
   // <lang><zh-CN>设计令牌的实际来源是JSON，其合成范围仍只用于定位。</zh-CN><en>Design tokens originate in JSON; their synthetic ranges remain reference-only.</en></lang>
   const sourceLanguage = artifact.source.kind === "design-tokens" ? "json" : "css";
+  // <lang><zh-CN>缺省摘要在JSON中应省略；不能把undefined留给序列化静默擦除。</zh-CN><en>Absent summaries must be omitted in JSON rather than left as undefined for serialization to erase silently.</en></lang>
+  const summary = symbol.i18n?.fields?.description?.defaultText ?? symbol.summary;
   // <lang><zh-CN>核心来源模型维持link模式；只有上面已证的正文能进入高置信片段。</zh-CN><en>The core source model stays in link mode; only text proven above may enter high-confidence fragments.</en></lang>
   const mapped = {
     id: symbol.id,
     name: symbol.name,
     kind: symbol.kind,
-    parentId: symbol.parentId,
-    summary: symbol.i18n?.fields?.description?.defaultText ?? symbol.summary,
+    ...(symbol.parentId === undefined ? {} : { parentId: symbol.parentId }),
+    ...(summary === undefined ? {} : { summary }),
     source: {
       model: HIA_SOURCE_MODEL,
       modelVersion: HIA_SOURCE_MODEL_VERSION,
@@ -88,7 +90,7 @@ function mapSymbol(symbol, artifact, sourceLines) {
         relativePath: sourcePath,
         language: sourceLanguage,
         position: range?.start ?? { line: 1, column: 1 },
-        range: range ?? undefined
+        ...(range ? { range } : {})
       },
       fragments: range && fragmentContent
         ? [

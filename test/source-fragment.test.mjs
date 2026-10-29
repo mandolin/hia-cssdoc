@@ -100,3 +100,18 @@ test("synthetic design-token locations are JSON references without invented cont
   assert.deepEqual(document.symbols[0].source.fragments, []);
   assert.deepEqual(document.symbols[0].source.definedIn.range, extraction.symbols[0].source.range);
 });
+
+for (const hasRange of [true, false]) {
+  test(`direct core projection is ordinary JSON before serialization / ranged=${hasRange}`, () => {
+    // <lang><zh-CN>摘要和父节点缺省是合法真实提取，不允许输出对象靠落盘消除undefined才能有效。</zh-CN><en>Absent summaries and parents are valid real extraction states; output must not depend on writing JSON to remove undefined.</en></lang>
+    const extraction = extractCssDoc("/** @component Plain */.plain{}", { path: "plain.css", sourcesContentPolicy: "embed" });
+    if (!hasRange) extraction.symbols[0].source.range = null;
+    const before = structuredClone(extraction);
+    const document = cssExtractionToHiaDocument(extraction);
+    assert.deepEqual(document, JSON.parse(JSON.stringify(document)));
+    assert.equal(Object.hasOwn(document.symbols[0], "parentId"), false);
+    assert.equal(Object.hasOwn(document.symbols[0], "summary"), false);
+    assert.equal(Object.hasOwn(document.symbols[0].source.definedIn, "range"), hasRange);
+    assert.deepEqual(extraction, before);
+  });
+}

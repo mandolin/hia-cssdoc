@@ -28,10 +28,15 @@ for choosing suitable values and using the core validator downstream.
 
 ## Returns
 
-The conversion returns `hia-core-document` shape `schemaVersion: "0.2.0"`, a root
+With valid ordinary options, the conversion returns an ordinary JSON
+`hia-core-document` shape `schemaVersion: "0.2.0"`, a root
 node, a new symbols array, source links and source-contract metadata. Each source
 uses `hia-source@0.2.0`, `mode: "link"`. Design-token source language is `json`;
 CSS and Vue-style source language is `css`.
+
+Absent optional parent, summary and reference-range fields are omitted, not
+assigned `undefined`; direct core validation must not depend on serialization
+discarding them first.
 
 The result is **not a deep clone**. Symbol i18n, ranges and annotation objects,
 diagnostic arrays, producer/source-map metadata and nested symbol metadata can
