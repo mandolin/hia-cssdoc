@@ -1,5 +1,14 @@
 # HIA CSSDoc
 
+## Supported runtime
+
+Current source supports Node.js `^22.23.4 || ^24.22.1`. Release checks use
+Node.js 22.23.4 and 24.22.1 on Windows and Ubuntu; actual package qualification
+and npm availability remain separate. The repository default is Node.js 24.22.1.
+
+中文：当前源码运行范围为上述两条已确认版本线，CI/安装验收与实际npm发布分别核对。
+
+
 HIA CSSDoc is a standards-oriented CSS documentation toolkit. It extracts
 structured documentation from CSS comments and Design Tokens Format Module
 files, then produces CSSDoc artifacts, HIA documents and documentation source
@@ -113,8 +122,8 @@ inheritance and maps `$root` tokens to the group path.
 
 ## Compatibility
 
-- Node.js `>=20.19.0`; local development is pinned to `20.20.2` with mise.
-- CI release gates cover Node 20.20.2, 22.x and 24.x.
+- Node.js `^22.23.4 || ^24.22.1`; local development is pinned to `24.22.1` with mise.
+- CI release gates cover Node.js 22.23.4 and 24.22.1 on Windows and Ubuntu.
 - PostCSS `8.5.16`.
 - Design Tokens Format Module `2025.10`.
 - CSSDoc extraction contract `0.1.0-draft`.

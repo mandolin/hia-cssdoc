@@ -12,5 +12,8 @@
     "@hia-doc/css-doc-source-map": "0.0.0",
     "@hia-doc/css-parser": "0.0.0",
     "@hia-doc/cssdoc-spec": "0.0.0"
+  },
+  "engines": {
+    "node": "^22.23.4 || ^24.22.1"
   }
 }

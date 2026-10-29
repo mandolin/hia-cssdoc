@@ -17,7 +17,7 @@
     "LICENSE"
   ],
   "engines": {
-    "node": ">=20.19.0"
+    "node": "^22.23.4 || ^24.22.1"
   },
   "dependencies": {
     "@hia-doc/css-doc-adapter": "0.0.0",
