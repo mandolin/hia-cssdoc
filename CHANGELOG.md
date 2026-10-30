@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased — 1.0.0 source candidates
+
+- Prepare eight selected 1.0.0 package manifests with exact first-party runtime
+  dependencies, public repository metadata and package-local API/migration docs.
+  Keep the workspace root private; no registry publication is announced.
+- Document all 46 root export slots, four schema resources and one binary;
+  check actual exports, candidate/lock metadata and packaged responsibility docs.
+- Align current runtime producer provenance with package candidates while
+  preserving exact old readers, historical schema bytes and map 1.1.0 precision.
+- Preserve the first token id and allocate numeric suffixes for later slug
+  collisions, matching existing CSS allocation without changing names/values.
+- Add dependency-ordered inventory and explicit source-only publication refusal.
+- 中文：八包源码候选与首次公开准备，原有契约/迁移和片段规则保持；实际npm首发另验。
+
 ## Unreleased — Original source fragments
 
 - Slice proven PostCSS rule fragments at inclusive UTF-16 coordinates from the

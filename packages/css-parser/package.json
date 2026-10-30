@@ -1,7 +1,6 @@
 {
   "name": "@hia-doc/css-parser",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
   "description": "CSS parser wrapper boundary for CSSDoc.",
   "license": "MIT",
   "type": "module",
@@ -17,6 +16,26 @@
   "files": [
     "src",
     "README.md",
+    "API.md",
+    "MIGRATION.md",
     "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mandolin/hia-cssdoc.git",
+    "directory": "packages/css-parser"
+  },
+  "homepage": "https://github.com/mandolin/hia-cssdoc/tree/main/packages/css-parser",
+  "bugs": {
+    "url": "https://github.com/mandolin/hia-cssdoc/issues"
+  },
+  "keywords": [
+    "documentation",
+    "css",
+    "hia"
   ]
 }

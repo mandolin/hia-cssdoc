@@ -30,4 +30,5 @@ export const cssdocProducer = Object.freeze({
   }
 });
 
+/** @lang zh-CN 默认入口与命名producer是同一只读对象，不新建执行器。 @lang en Default and named producer share one read-only object, without a new executor. */
 export default cssdocProducer;

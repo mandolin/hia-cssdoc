@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "1.0.0",
+  "candidateVersion": "1.0.0",
+  "releaseStatus": "local-release-candidate",
+  "registry": "https://registry.npmjs.org/",
+  "access": "public",
+  "provenanceRequired": true,
+  "firstPublication": "separate-approval-and-registry-verification-required",
+  "packages": [
+    {
+      "name": "@hia-doc/cssdoc-spec",
+      "directory": "packages/cssdoc-spec",
+      "order": 10,
+      "status": "local-release-candidate"
+    },
+    {
+      "name": "@hia-doc/css-parser",
+      "directory": "packages/css-parser",
+      "order": 20,
+      "status": "local-release-candidate"
+    },
+    {
+      "name": "@hia-doc/css-doc-source-map",
+      "directory": "packages/css-doc-source-map",
+      "order": 30,
+      "status": "local-release-candidate"
+    },
+    {
+      "name": "@hia-doc/css-doc-extractor",
+      "directory": "packages/css-doc-extractor",
+      "order": 40,
+      "status": "local-release-candidate"
+    },
+    {
+      "name": "@hia-doc/css-doc-adapter",
+      "directory": "packages/css-doc-adapter",
+      "order": 50,
+      "status": "local-release-candidate"
+    },
+    {
+      "name": "@hia-doc/design-token-bridge",
+      "directory": "packages/design-token-bridge",
+      "order": 60,
+      "status": "local-release-candidate"
+    },
+    {
+      "name": "@hia-doc/cssdoc-runner",
+      "directory": "packages/cssdoc-runner",
+      "order": 70,
+      "status": "local-release-candidate"
+    },
+    {
+      "name": "@hia-doc/cssdoc-producer",
+      "directory": "packages/cssdoc-producer",
+      "order": 80,
+      "status": "local-release-candidate"
+    }
+  ]
+}

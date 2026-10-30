@@ -1,7 +1,6 @@
 {
   "name": "@hia-doc/css-doc-source-map",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
   "description": "CSS documentation source-map linkage.",
   "license": "MIT",
   "type": "module",
@@ -14,9 +13,29 @@
   "files": [
     "src",
     "README.md",
+    "API.md",
+    "MIGRATION.md",
     "LICENSE"
   ],
   "dependencies": {
-    "@hia-doc/cssdoc-spec": "0.0.0"
-  }
+    "@hia-doc/cssdoc-spec": "1.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mandolin/hia-cssdoc.git",
+    "directory": "packages/css-doc-source-map"
+  },
+  "homepage": "https://github.com/mandolin/hia-cssdoc/tree/main/packages/css-doc-source-map",
+  "bugs": {
+    "url": "https://github.com/mandolin/hia-cssdoc/issues"
+  },
+  "keywords": [
+    "documentation",
+    "css",
+    "hia"
+  ]
 }

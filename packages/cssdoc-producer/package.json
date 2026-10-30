@@ -1,7 +1,6 @@
 {
   "name": "@hia-doc/cssdoc-producer",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
   "description": "Documentation producer adapter for CSSDoc.",
   "license": "MIT",
   "type": "module",
@@ -11,12 +10,32 @@
   "files": [
     "src",
     "README.md",
+    "API.md",
+    "MIGRATION.md",
     "LICENSE"
   ],
   "engines": {
     "node": "^22.23.4 || ^24.22.1"
   },
   "dependencies": {
-    "@hia-doc/cssdoc-runner": "0.0.0"
-  }
+    "@hia-doc/cssdoc-runner": "1.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mandolin/hia-cssdoc.git",
+    "directory": "packages/cssdoc-producer"
+  },
+  "homepage": "https://github.com/mandolin/hia-cssdoc/tree/main/packages/cssdoc-producer",
+  "bugs": {
+    "url": "https://github.com/mandolin/hia-cssdoc/issues"
+  },
+  "keywords": [
+    "documentation",
+    "css",
+    "hia"
+  ]
 }

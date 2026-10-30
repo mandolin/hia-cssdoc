@@ -4,7 +4,7 @@
 
 Current extraction (`hia-cssdoc-extraction`), config and artifact profile versions
 are `1.0.0`. Exact `0.1.0-draft` JSON reading remains supported. Package versions
-remain private `0.0.0`, producer descriptor/result use `1.0.0`, and documentation
+are source candidates at `1.0.0`, producer descriptor/result use `1.0.0`, and documentation
 source maps use `1.1.0`. These numbers identify different contracts. No registry
 release or complete CSS/DTCG conformance is implied.
 

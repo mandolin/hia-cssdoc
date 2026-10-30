@@ -9,4 +9,14 @@ and npm availability remain separate. The repository default is Node.js 24.22.1.
 中文：当前源码运行范围为上述两条已确认版本线，CI/安装验收与实际npm发布分别核对。
 
 
-Wraps the selected CSS parser and exposes an extraction-friendly boundary without leaking parser-private ASTs to adapters.
+Exposes the pinned PostCSS AST through an explicit wrapper. Downstream adapters
+consume extracted JSON rather than this mutable AST.
+
+
+## API and compatibility
+
+See the packaged [API reference](API.md) and [migration notes](MIGRATION.md) for
+all public entries, ownership, defaults, effects, source precision and privacy.
+The package is a 1.0.0 source candidate; registry availability is a separate gate.
+
+中文：公开责任与迁移文档随包提供；源码候选不代表已经发布npm。

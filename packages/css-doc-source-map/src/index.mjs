@@ -1,4 +1,6 @@
+/** @file CSSDoc到直接文档源码映射的纯投影，不读取正文。 @lang en Pure CSSDoc to direct documentation-source-map projection without source-body reads. */
 import { validateCssDocExtraction } from "@hia-doc/cssdoc-spec";
+/** @lang zh-CN 精确内容策略白名单，不代表授权或实际嵌入正文。 @lang en Exact content-policy allowlist, not authorization or evidence of embedded text. */
 export const CSS_DOC_SOURCE_CONTENT_POLICIES = Object.freeze(["none", "reference", "embed"]);
 /**
  * 当前 CSSDoc 映射写入器所发出的文档源码映射契约身份。
@@ -7,6 +9,7 @@ export const CSS_DOC_SOURCE_CONTENT_POLICIES = Object.freeze(["none", "reference
  */
 export const CSS_DOC_SOURCE_MAP_CONTRACT_VERSION = "1.1.0";
 
+/** @param {object} [options] <lang><zh-CN>href默认null，policy默认none；href由调用方负责有效/公开。</zh-CN><en>href defaults to null, policy to none; the caller owns href validity/disclosure.</en></lang> @returns {object} <lang><zh-CN>新引用对象，不读取href。</zh-CN><en>Fresh reference without reading href.</en></lang> @throws {TypeError} <lang><zh-CN>策略无效时固定拒绝。</zh-CN><en>Fixed refusal for invalid policy.</en></lang> */
 export function createCssDocSourceMapRef(options = {}) {
   return {
     kind: "hia-doc-source-map-ref",
@@ -56,7 +59,7 @@ export function createCssDocumentationSourceMap(options = {}) {
     id: options.id ?? `docmap:cssdoc:${slug(sourcePath)}`,
     producer: {
       name: "@hia-doc/css-doc-source-map",
-      version: "0.0.0",
+      version: "1.0.0",
       runtime: "node",
       profile: "cssdoc-direct-source"
     },

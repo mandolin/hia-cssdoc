@@ -1,7 +1,6 @@
 {
   "name": "@hia-doc/design-token-bridge",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
   "description": "Bridges design token artifacts to HIA-compatible documentation data.",
   "license": "MIT",
   "type": "module",
@@ -9,7 +8,7 @@
     ".": "./src/index.mjs"
   },
   "dependencies": {
-    "@hia-doc/cssdoc-spec": "0.0.0"
+    "@hia-doc/cssdoc-spec": "1.0.0"
   },
   "engines": {
     "node": "^22.23.4 || ^24.22.1"
@@ -17,6 +16,26 @@
   "files": [
     "src",
     "README.md",
+    "API.md",
+    "MIGRATION.md",
     "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mandolin/hia-cssdoc.git",
+    "directory": "packages/design-token-bridge"
+  },
+  "homepage": "https://github.com/mandolin/hia-cssdoc/tree/main/packages/design-token-bridge",
+  "bugs": {
+    "url": "https://github.com/mandolin/hia-cssdoc/issues"
+  },
+  "keywords": [
+    "documentation",
+    "css",
+    "hia"
   ]
 }

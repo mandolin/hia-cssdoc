@@ -32,3 +32,12 @@ placeholder ranges declare `unknown` for both fields. Missing ranges omit the
 convention. The contract identity is independent of the npm package version.
 
 Current writers/readers coordinate `hia-cssdoc-extraction@1.0.0` with exact `0.1.0-draft` JSON compatibility; unsupported or invalid reader inputs fail. See the repository migration guide for structure and source-precision limits.
+
+
+## API and compatibility
+
+See the packaged [API reference](API.md) and [migration notes](MIGRATION.md) for
+all public entries, ownership, defaults, effects, source precision and privacy.
+The package is a 1.0.0 source candidate; registry availability is a separate gate.
+
+中文：公开责任与迁移文档随包提供；源码候选不代表已经发布npm。

@@ -12,3 +12,12 @@ and npm availability remain separate. The repository default is Node.js 24.22.1.
 Bridges design token artifacts into HIA-compatible documentation data.
 
 Current output uses `hia-cssdoc-extraction@1.0.0` and its paired artifact profile. The existing input subset is unchanged; this is not a full CSS/DTCG validator. See the repository migration guide for exact historical reading and source-precision limits.
+
+
+## API and compatibility
+
+See the packaged [API reference](API.md) and [migration notes](MIGRATION.md) for
+all public entries, ownership, defaults, effects, source precision and privacy.
+The package is a 1.0.0 source candidate; registry availability is a separate gate.
+
+中文：公开责任与迁移文档随包提供；源码候选不代表已经发布npm。

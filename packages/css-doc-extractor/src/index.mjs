@@ -1,3 +1,4 @@
+/** @file 显式CSSDoc注释到版本化JSON工件，保留来源与字段级i18n。 @lang en Explicit CSSDoc comments to versioned JSON artifacts with source provenance and field-level i18n. */
 import { createCssDocSourceMapRef, normalizeSourcesContentPolicy } from "@hia-doc/css-doc-source-map";
 import { getCssNodeLocation, normalizeSourcePath, parseCss } from "@hia-doc/css-parser";
 import {
@@ -13,22 +14,34 @@ const DEFAULT_LOCALE = "en";
 const HIA_TEXT_I18N_MODEL = "hia-text-i18n";
 const HIA_TEXT_I18N_MODEL_VERSION = "0.2.0";
 
+/**
+ * @param {string} source <lang><zh-CN>显式CSS文本，不读文件。</zh-CN><en>Explicit CSS text without file reads.</en></lang>
+ * @param {object} [options] <lang><zh-CN>path默认input.css，defaultLocale默认en，sourcesContentPolicy默认none；仅embed保留正文。</zh-CN><en>path defaults to input.css, defaultLocale to en, sourcesContentPolicy to none; only embed retains the body.</en></lang>
+ * @returns {object} <lang><zh-CN>当前CSSDoc JSON，不改输入；同目标多个符号可共享嵌套来源/注释对象。</zh-CN><en>Current CSSDoc JSON without input mutation; multiple symbols on one target may share nested source/annotation objects.</en></lang>
+ * @throws {TypeError|Error} <lang><zh-CN>路径/策略固定拒绝；原生PostCSS语法错误可含源码，公开前须处理。</zh-CN><en>Fixed path/policy refusal; native PostCSS syntax errors may contain source and require handling before disclosure.</en></lang>
+ */
 export function extractCssDoc(source, options = {}) {
+  // <lang><zh-CN>定位器只做公开相对路径检查，不读取路径。</zh-CN><en>Check a public relative locator without reading its path.</en></lang>
   const sourcePath = normalizeSourcePath(options.path ?? "input.css");
+  // <lang><zh-CN>无效locale沿用英语默认，不临时发明语言语法。</zh-CN><en>Invalid locale falls back to English without inventing locale syntax.</en></lang>
   const defaultLocale = normalizeLocale(options.defaultLocale) || DEFAULT_LOCALE;
+  // <lang><zh-CN>本次原生AST与紧邻注释配对，只识别实际目标，不自动扫描生成其它符号。</zh-CN><en>This call's native AST and adjacent-comment pairs identify actual targets without automatically generating other symbols.</en></lang>
   const parsed = parseCss(source, { path: sourcePath });
   const pairs = collectAttachedCommentPairs(parsed.root);
+  // <lang><zh-CN>四组累积状态只属于本次提取，ID集合维护同一文档内唯一性。</zh-CN><en>Four accumulators belong to this extraction only; allocated ids maintain within-document uniqueness.</en></lang>
   const symbols = [];
   const annotations = [];
   const diagnostics = [...parsed.diagnostics];
   const usedIds = new Set();
 
   for (const pair of pairs) {
+    // <lang><zh-CN>注释块携带标签及局部语言；无标签不构建符号。</zh-CN><en>The comment block carries tags/localized text; no tags means no symbols.</en></lang>
     const block = parseCssDocComment(pair.comment.text ?? "", { defaultLocale });
     if (block.annotations.length === 0) {
       continue;
     }
 
+    // <lang><zh-CN>同目标位置由其各标签共享，注释自身范围单列。</zh-CN><en>Tags on one target share its location while the comment's own range stays separate.</en></lang>
     const target = createTargetInfo(pair.node, sourcePath);
     annotations.push({
       tags: block.annotations,
@@ -36,6 +49,7 @@ export function extractCssDoc(source, options = {}) {
       annotation: toAnnotationRange(pair.comment)
     });
 
+    // <lang><zh-CN>第一个component建父符号，其余支持标签可从属该父节点。</zh-CN><en>The first component creates a parent symbol for other supported tags.</en></lang>
     const parentAnnotation = block.annotations.find((annotation) => annotation.tag === "component");
     let parentId = null;
     if (parentAnnotation) {
@@ -48,6 +62,7 @@ export function extractCssDoc(source, options = {}) {
       if (annotation.tag === "component" || annotation.tag === "description" || annotation.tag === "lang" || annotation.tag === "cssdoc") {
         continue;
       }
+      // <lang><zh-CN>只接受显式种类；识别标签并不自动承诺独立符号。</zh-CN><en>Accept only explicit kinds; recognizing a tag never automatically promises an independent symbol.</en></lang>
       const kind = getCssDocSymbolKind(annotation.tag);
       if (!kind) {
         diagnostics.push(createDiagnostic("CSSDOC_UNKNOWN_TAG", `Unknown CSSDoc annotation tag: @${annotation.tag}`, "warning", target.source, { tag: annotation.tag }));
@@ -60,6 +75,7 @@ export function extractCssDoc(source, options = {}) {
     }
   }
 
+  // <lang><zh-CN>仅调用方明确embed才把已提供正文放进工件，引用不触发读取。</zh-CN><en>Only explicit embed puts the supplied body into the artifact; reference never triggers a read.</en></lang>
   const sourcesContentPolicy = normalizeSourcesContentPolicy(options.sourcesContentPolicy ?? "none");
   const sourceRecord = {
     kind: "css",
@@ -74,7 +90,7 @@ export function extractCssDoc(source, options = {}) {
     contractVersion: CSSDOC_EXTRACTION_CONTRACT_VERSION,
     producer: {
       name: "@hia-doc/css-doc-extractor",
-      version: "0.0.0"
+      version: "1.0.0"
     },
     profile: {
       name: "cssdoc",
@@ -93,13 +109,20 @@ export function extractCssDoc(source, options = {}) {
   };
 }
 
+/**
+ * @param {string} rawComment <lang><zh-CN>注释正文；实现会字符串化，不宜传带自定义转换对象。</zh-CN><en>Comment body; implementation stringifies it, so avoid custom coercion objects.</en></lang>
+ * @param {{defaultLocale?:string}} [options] <lang><zh-CN>默认en的文本语言。</zh-CN><en>Text locale, default en.</en></lang>
+ * @returns {object} <lang><zh-CN>标签、summary/null及i18n/null；无I/O，不是完整提取工件。</zh-CN><en>Annotations, summary/null and i18n/null; no I/O and not a complete extraction artifact.</en></lang>
+ */
 export function parseCssDocComment(rawComment, options = {}) {
+  // <lang><zh-CN>注释文本按既有逻辑规范化换行与星号；不用于原始源码片段切片。</zh-CN><en>Normalize comment newlines/asterisks by existing rules, never using this text to slice original source fragments.</en></lang>
   const lines = String(rawComment)
     .replaceAll("\r\n", "\n")
     .replaceAll("\r", "\n")
     .split("\n")
     .map((line) => line.replace(/^\s*\* ?/, "").trim());
 
+  // <lang><zh-CN>标签与普通正文分开累积，保留顺序供字段级i18n投影。</zh-CN><en>Accumulate tags and prose separately, retaining order for field-level i18n projection.</en></lang>
   const annotations = [];
   const prose = [];
 
@@ -107,11 +130,13 @@ export function parseCssDocComment(rawComment, options = {}) {
     if (!line) {
       continue;
     }
+    // <lang><zh-CN>只识别行首标签，普通文字仍作为描述，不强行转语法。</zh-CN><en>Recognize line-leading tags only; ordinary text remains prose rather than forced syntax.</en></lang>
     const match = /^@([A-Za-z][\w-]*)(?:\s+(.*))?$/.exec(line);
     if (!match) {
       prose.push(line);
       continue;
     }
+    // <lang><zh-CN>规范标签和值来自当前行，known只是识别结果，不是验证证明。</zh-CN><en>Canonical tag/value come from this line; known records recognition, not validation proof.</en></lang>
     const tag = normalizeTag(match[1]);
     const value = (match[2] ?? "").trim();
     annotations.push({
@@ -121,6 +146,7 @@ export function parseCssDocComment(rawComment, options = {}) {
     });
   }
 
+  // <lang><zh-CN>显式description优于普通正文；字段语言按现有规则回退。</zh-CN><en>Explicit description precedes ordinary prose; field locale follows existing fallback rules.</en></lang>
   const defaultLocale = normalizeLocale(options.defaultLocale) || DEFAULT_LOCALE;
   const descriptionTag = annotations.find((annotation) => annotation.tag === "description");
   const summary = descriptionTag?.value || prose.join(" ").trim() || null;

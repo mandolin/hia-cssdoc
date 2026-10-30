@@ -16,6 +16,7 @@ export {
 } from "./schema-legacy.mjs";
 export { getCssDocExtractionSchema, validateCssDocExtraction, migrateCssDocExtraction } from "./compatibility.mjs";
 
+/** @lang zh-CN 九类已支持的符号种类，浅冻结只读映射。 @lang en Read-only shallow-frozen mapping of nine supported symbol kinds. */
 export const CSSDOC_SYMBOL_KINDS = Object.freeze({
   componentStyle: "css-component-style",
   selector: "css-selector",
@@ -28,6 +29,7 @@ export const CSSDOC_SYMBOL_KINDS = Object.freeze({
   designToken: "design-token"
 });
 
+/** @lang zh-CN 识别标签集合，识别不等于各标签都有独立符号。 @lang en Recognized tags; recognition does not mean every tag has its own symbol. */
 export const CSSDOC_TAGS = Object.freeze([
   "cssdoc",
   "component",
@@ -69,6 +71,7 @@ export function getCssDocSymbolKind(tag) {
   return typeof tag === "string" && Object.hasOwn(TAG_TO_KIND, tag) ? TAG_TO_KIND[tag] : null;
 }
 
+/** @param {unknown} tag <lang><zh-CN>精确规范标签，不做类型转换。</zh-CN><en>Exact canonical tag without coercion.</en></lang> @returns {boolean} <lang><zh-CN>是否在标签列表，无I/O。</zh-CN><en>Whether the tag is listed, without I/O.</en></lang> */
 export function isCssDocTag(tag) {
   return CSSDOC_TAGS.includes(tag);
 }

@@ -39,7 +39,7 @@ explicitly in the config `options` object.
 
 Current source emits `documentation-producer-result@1.0.0`. The producer
 descriptor uses `documentation-producer@1.0.0`; these identities are independent
-of the private package version `0.0.0` and CSSDoc extraction/config/profile
+of the package candidate version `1.0.0` and CSSDoc extraction/config/profile
 `1.0.0` (exact legacy JSON remains readable).
 
 `runCssDoc(request, context?)` requires absolute `workspaceRoot` and
@@ -77,3 +77,12 @@ also return 1. API users receive structured diagnostics for build failures.
 
 中文：本页声明现有 API 的默认值、所有权、写入/回调副作用与失败限制；主 SDK
 身份已采用，自有1.0.0已匹配既有默认，旧schema/兼容迁移分别保留，不据此声称全部候选稳定。
+
+
+## API and compatibility
+
+See the packaged [API reference](API.md) and [migration notes](MIGRATION.md) for
+all public entries, ownership, defaults, effects, source precision and privacy.
+The package is a 1.0.0 source candidate; registry availability is a separate gate.
+
+中文：公开责任与迁移文档随包提供；源码候选不代表已经发布npm。

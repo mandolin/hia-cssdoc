@@ -31,11 +31,11 @@ Core annotations use unprefixed tags such as `@component`, `@selector`,
 
 ## Standalone CLI
 
-The eight packages are private source packages at `0.0.0`; registry publication
-and `1.0.0` package qualification are not complete. From a source checkout:
+The eight packages target `1.0.0` as source candidates; registry publication
+is a separate gate. From a source checkout:
 
 ```sh
-npm install
+npm ci
 npm run smoke:standalone
 ```
 
@@ -162,3 +162,11 @@ for APIs, ownership, non-JSON refusal and four bundled schema exports.
 The DTCG bridge preserves the
 documented token/group subset without resolving references or validating every
 DTCG value. See the [runner contract](packages/cssdoc-runner/README.md).
+
+
+## Source candidate inventory
+
+The [release inventory](release/public-packages.json) fixes eight package names,
+dependency order and local candidate status. Every package ships API/MIGRATION
+documents and MIT license. See [first publication gates](release/README.md);
+`npm run release:check:publish-ready` deliberately refuses this source-only train.

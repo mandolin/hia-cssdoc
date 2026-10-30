@@ -22,3 +22,12 @@ The package also exports the versioned extraction artifact schema constants:
 - `CSSDOC_EXTRACTION_JSON_SCHEMA`
 
 Current extraction/artifact profile is `1.0.0`. Exact old JSON readers, schema selectors, validation and pure migration are documented in [MIGRATION.md](MIGRATION.md).
+
+
+## API and compatibility
+
+See the packaged [API reference](API.md) and [migration notes](MIGRATION.md) for
+all public entries, ownership, defaults, effects, source precision and privacy.
+The package is a 1.0.0 source candidate; registry availability is a separate gate.
+
+中文：公开责任与迁移文档随包提供；源码候选不代表已经发布npm。

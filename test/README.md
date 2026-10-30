@@ -1,5 +1,12 @@
 # CSSDoc Tests
 
+`candidate.test.mjs` checks all eight source manifests and packaged responsibility
+documents, runtime provenance, metadata/order/dependency negative cases, actual
+public API coverage, explicit publication refusal and real token id collisions.
+It never publishes or changes repository manifests during tests.
+
+中文：候选反例先红后绿，不能把元数据改号当真实分发或正式版验收。
+
 Tests cover parser/extractor output, adapter mapping, source-range evidence and
 standalone generation. `boundary.test.mjs` adds declared boolean/language/profile
 checks, safe public failures, relative locators, tag ownership, producer identity

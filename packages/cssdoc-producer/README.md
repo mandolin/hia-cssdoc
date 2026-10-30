@@ -18,3 +18,12 @@ import cssdocProducer from "@hia-doc/cssdoc-producer";
 The producer delegates to `@hia-doc/cssdoc-runner`, so standalone and HIA
 project builds use the same extraction and artifact pipeline. The producer is
 loaded explicitly by an HIA project; it does not scan installed modules.
+
+
+## API and compatibility
+
+See the packaged [API reference](API.md) and [migration notes](MIGRATION.md) for
+all public entries, ownership, defaults, effects, source precision and privacy.
+The package is a 1.0.0 source candidate; registry availability is a separate gate.
+
+中文：公开责任与迁移文档随包提供；源码候选不代表已经发布npm。
