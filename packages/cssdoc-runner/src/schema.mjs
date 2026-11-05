@@ -3,11 +3,13 @@ export const CSSDOC_CONFIG_SCHEMA_VERSION = "1.0.0";
 /** @lang zh-CN 公开规范 URL 仅为身份，不触发读取。 @lang en Canonical public URL is an identity and triggers no reads. */
 export const CSSDOC_CONFIG_SCHEMA_ID = "https://mandolin.github.io/HIA-Documentation/schemas/cssdoc-config-1.0.0.schema.json";
 /** @lang zh-CN 精确旧 schema 读取入口，不套用新默认。 @lang en Exact historical schema entry without imposing new defaults. */
-export {
-  CSSDOC_CONFIG_JSON_SCHEMA as CSSDOC_LEGACY_CONFIG_JSON_SCHEMA,
-  CSSDOC_CONFIG_SCHEMA_ID as CSSDOC_LEGACY_CONFIG_SCHEMA_ID,
-  CSSDOC_CONFIG_SCHEMA_VERSION as CSSDOC_LEGACY_CONFIG_SCHEMA_VERSION
-} from "./schema-legacy.mjs";
+import * as legacyConfig from "./schema-legacy.mjs";
+/** @lang zh-CN 原档案配置schema的同一对象，不克隆、不插入新默认或修改历史模块。 @lang en The original archived config-schema object without cloning, inserting new defaults or changing the historical module. */
+export const CSSDOC_LEGACY_CONFIG_JSON_SCHEMA = legacyConfig.CSSDOC_CONFIG_JSON_SCHEMA;
+/** @lang zh-CN 原档案配置schema身份，不读取URL。 @lang en Original archived config-schema identity, without URL reads. */
+export const CSSDOC_LEGACY_CONFIG_SCHEMA_ID = legacyConfig.CSSDOC_CONFIG_SCHEMA_ID;
+/** @lang zh-CN 原档案配置版本，不重标旧工件。 @lang en Original archived config version, without relabeling historical artifacts. */
+export const CSSDOC_LEGACY_CONFIG_SCHEMA_VERSION = legacyConfig.CSSDOC_CONFIG_SCHEMA_VERSION;
 
 const relativeDirectory = {
   type: "string",

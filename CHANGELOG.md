@@ -2,6 +2,8 @@
 
 ## Unreleased — 1.0.0 source candidates
 
+- Document legacy config/extraction exports individually through compatibility facades retaining the exact archived objects and values; historical modules and schemas remain unchanged.
+
 - Use native JSDoc-compatible optional parameter properties in public API comments, preserving runtime behavior, defaults and bilingual descriptions.
 
 - Prepare eight selected 1.0.0 package manifests with exact first-party runtime

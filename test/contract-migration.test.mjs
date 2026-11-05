@@ -145,3 +145,14 @@ test("four actual JSON schema package subpaths match their exact selector object
     assert.equal(runner.getCssDocConfigSchema(config.default.$id), runner.getCssDocConfigSchema(version));
   }
 });
+
+import {test as legacyFacadeTest} from "node:test";
+/** @lang zh-CN 逐项兼容说明不得改变原schema对象、身份或版本值。 @lang en Per-export compatibility documentation must not change original schema objects, identities or version values. */
+legacyFacadeTest("documented legacy facades retain exact archived objects and values",async()=>{
+  const config=await import("../packages/cssdoc-runner/src/schema.mjs");
+  const oldConfig=await import("../packages/cssdoc-runner/src/schema-legacy.mjs");
+  const currentSpec=await import("../packages/cssdoc-spec/src/index.mjs");
+  const oldSpec=await import("../packages/cssdoc-spec/src/schema-legacy.mjs");
+  for(const suffix of ["JSON_SCHEMA","SCHEMA_ID","SCHEMA_VERSION"]) assert.strictEqual(config[`CSSDOC_LEGACY_CONFIG_${suffix}`],oldConfig[`CSSDOC_CONFIG_${suffix}`]);
+  for(const suffix of ["EXTRACTION_JSON_SCHEMA","EXTRACTION_SCHEMA_ID","EXTRACTION_CONTRACT_VERSION","PROFILE_VERSION"]) assert.strictEqual(currentSpec[`CSSDOC_LEGACY_${suffix}`],oldSpec[`CSSDOC_${suffix}`]);
+});
