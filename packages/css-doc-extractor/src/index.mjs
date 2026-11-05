@@ -111,7 +111,8 @@ export function extractCssDoc(source, options = {}) {
 
 /**
  * @param {string} rawComment <lang><zh-CN>注释正文；实现会字符串化，不宜传带自定义转换对象。</zh-CN><en>Comment body; implementation stringifies it, so avoid custom coercion objects.</en></lang>
- * @param {{defaultLocale?:string}} [options] <lang><zh-CN>默认en的文本语言。</zh-CN><en>Text locale, default en.</en></lang>
+ * @param {Object} [options] <lang><zh-CN>提取语言配置。</zh-CN><en>Extraction locale options.</en></lang>
+ * @param {string} [options.defaultLocale="en"] <lang><zh-CN>默认文本语言。</zh-CN><en>Default text locale.</en></lang>
  * @returns {object} <lang><zh-CN>标签、summary/null及i18n/null；无I/O，不是完整提取工件。</zh-CN><en>Annotations, summary/null and i18n/null; no I/O and not a complete extraction artifact.</en></lang>
  */
 export function parseCssDocComment(rawComment, options = {}) {

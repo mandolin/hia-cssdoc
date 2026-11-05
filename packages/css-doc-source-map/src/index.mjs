@@ -31,7 +31,12 @@ export function normalizeSourcesContentPolicy(policy) {
  * 已证的 PostCSS 规则使用包含式 UTF-16 列，其余节点和设计令牌占位范围保持未知。
  *
  * @lang en Builds a direct-source map from a CSSDoc extraction artifact. Proven PostCSS rule locations use inclusive UTF-16 columns; unproven nodes and synthetic design-token ranges stay unknown per reference.
- * @param {{extraction: object, extractionPath?: string, hiaDocumentPath?: string, sourcesContentPolicy?: string, id?: string}} options <lang><zh-CN>提取工件及公开安全的相对路径、内容策略。</zh-CN><en>Extraction artifact, public-safe relative paths and content policy.</en></lang>
+ * @param {Object} options <lang><zh-CN>提取工件及公开安全的相对路径、内容策略。</zh-CN><en>Extraction artifact, public-safe relative paths and content policy.</en></lang>
+ * @param {Object} options.extraction <lang><zh-CN>必需的 CSS 提取件。</zh-CN><en>Required CSS extraction.</en></lang>
+ * @param {string} [options.extractionPath] <lang><zh-CN>提取件相对路径；省略时使用函数内默认路径。</zh-CN><en>Relative extraction path; omission uses the function's default path.</en></lang>
+ * @param {string} [options.hiaDocumentPath] <lang><zh-CN>HIA 文档相对路径；省略时使用函数内默认路径。</zh-CN><en>Relative HIA document path; omission uses the function's default path.</en></lang>
+ * @param {string} [options.sourcesContentPolicy] <lang><zh-CN>none/reference/embed；省略时继承提取件策略，再回退 none。</zh-CN><en>none/reference/embed; omission inherits the extraction policy, then falls back to none.</en></lang>
+ * @param {string} [options.id] <lang><zh-CN>映射身份；省略时由来源路径派生。</zh-CN><en>Map identity; derived from the source path when omitted.</en></lang>
  * @returns {object} <lang><zh-CN>不嵌入源码正文的 1.1.0 映射工件。</zh-CN><en>A 1.1.0 map artifact without embedded source content.</en></lang>
  * @throws {Error} <lang><zh-CN>提取契约、路径或内容策略无效时抛出。</zh-CN><en>Throws for an invalid extraction contract, path or content policy.</en></lang>
  */

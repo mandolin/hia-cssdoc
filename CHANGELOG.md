@@ -2,6 +2,8 @@
 
 ## Unreleased — 1.0.0 source candidates
 
+- Use native JSDoc-compatible optional parameter properties in public API comments, preserving runtime behavior, defaults and bilingual descriptions.
+
 - Prepare eight selected 1.0.0 package manifests with exact first-party runtime
   dependencies, public repository metadata and package-local API/migration docs.
   Keep the workspace root private; no registry publication is announced.

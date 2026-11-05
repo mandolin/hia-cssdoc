@@ -11,7 +11,8 @@ import {
 
 /**
  * @param {object} tokens <lang><zh-CN>已解析的普通无环JSON；支持$value/group/$root/继承$type子集，不是完整validator。</zh-CN><en>Parsed ordinary acyclic JSON; supports the $value/group/$root/inherited-$type subset, not a complete validator.</en></lang>
- * @param {{path?:string}} [options] <lang><zh-CN>来源相对路径，默认tokens.json。</zh-CN><en>Relative source path, default tokens.json.</en></lang>
+ * @param {Object} [options] <lang><zh-CN>设计令牌来源配置。</zh-CN><en>Design-token source options.</en></lang>
+ * @param {string} [options.path="tokens.json"] <lang><zh-CN>来源相对路径。</zh-CN><en>Relative source path.</en></lang>
  * @returns {object} <lang><zh-CN>当前CSSDoc JSON；不改输入，但部分metadata值共享引用，1:1范围为合成占位。</zh-CN><en>Current CSSDoc JSON; input is unchanged but some metadata values share references and 1:1 ranges are synthetic placeholders.</en></lang>
  * @throws {TypeError} <lang><zh-CN>来源路径不合法；任意非JSON/循环对象不在本API保证内。</zh-CN><en>Invalid source path; arbitrary non-JSON/cyclic objects are outside this API's guarantees.</en></lang>
  */

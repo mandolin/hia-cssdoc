@@ -3,7 +3,8 @@ import postcss from "postcss";
 
 /**
  * @param {string} source <lang><zh-CN>显式CSS文本。</zh-CN><en>Explicit CSS text.</en></lang>
- * @param {{path?:string}} [options] <lang><zh-CN>安全相对来源，默认input.css。</zh-CN><en>Safe relative source, default input.css.</en></lang>
+ * @param {Object} [options] <lang><zh-CN>解析来源配置。</zh-CN><en>Parser source options.</en></lang>
+ * @param {string} [options.path="input.css"] <lang><zh-CN>安全相对来源。</zh-CN><en>Safe relative source.</en></lang>
  * @returns {object} <lang><zh-CN>可变原生AST包装与来源，不读文件或加载source map。</zh-CN><en>Mutable native AST wrapper and provenance without file reads or source-map loading.</en></lang>
  * @throws {TypeError|Error} <lang><zh-CN>路径固定拒绝；原生语法错误可能携带源码/路径，公开前须处理。</zh-CN><en>Fixed path refusal; native syntax errors may contain source/paths and must be handled before disclosure.</en></lang>
  */

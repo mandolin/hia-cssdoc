@@ -124,7 +124,8 @@ export async function runCssDoc(request, context = {}) {
 
 /**
  * @param {string} configPath <lang><zh-CN>配置定位器；相对cwd。</zh-CN><en>Config locator relative to cwd.</en></lang>
- * @param {{cwd?:string}} [options] <lang><zh-CN>默认process.cwd，仅内存绝对路径。</zh-CN><en>Defaults to process.cwd; absolute paths remain in memory.</en></lang>
+ * @param {Object} [options] <lang><zh-CN>配置加载选项。</zh-CN><en>Config loading options.</en></lang>
+ * @param {string} [options.cwd] <lang><zh-CN>默认process.cwd，仅内存绝对路径。</zh-CN><en>Defaults to process.cwd; absolute paths remain in memory.</en></lang>
  * @returns {Promise<object>} <lang><zh-CN>精确旧0.1.0-draft/新1.0.0配置加载；历史目录/后缀默认保持，不写文件。</zh-CN><en>Exact legacy0.1.0-draft/current1.0.0 config load preserving historical directory/suffix defaults without writes.</en></lang>
  * @throws {TypeError} <lang><zh-CN>读/解析/字段失败，固定公开错误；旧schema的required原样保留，纯迁移另有显式入口。</zh-CN><en>Read/parse/field failures use fixed public errors; legacy required remains unchanged and pure migration has an explicit entry.</en></lang>
  */
