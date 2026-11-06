@@ -164,6 +164,14 @@ documented token/group subset without resolving references or validating every
 DTCG value. See the [runner contract](packages/cssdoc-runner/README.md).
 
 
+## API property documentation
+
+Producer descriptor properties and `CSSDOC_SYMBOL_KINDS` entries carry individual
+English and Simplified Chinese JSDoc descriptions for generated API references.
+Each field retains its own declaration source and localized text.
+
+中文：生产器描述符与CSS领域种类表逐属性提供中英文原生注释，生成API文档保留各字段声明来源和语言正文。
+
 ## Source candidate inventory
 
 The [release inventory](release/public-packages.json) fixes eight package names,

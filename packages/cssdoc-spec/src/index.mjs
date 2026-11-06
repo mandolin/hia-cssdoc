@@ -21,14 +21,50 @@ export { getCssDocExtractionSchema, validateCssDocExtraction, migrateCssDocExtra
 
 /** @lang zh-CN 九类已支持的符号种类，浅冻结只读映射。 @lang en Read-only shallow-frozen mapping of nine supported symbol kinds. */
 export const CSSDOC_SYMBOL_KINDS = Object.freeze({
+  /**
+   * @lang zh-CN 组件样式文档节点的领域种类。
+   * @lang en Domain kind for a component-style documentation node.
+   */
   componentStyle: "css-component-style",
+  /**
+   * @lang zh-CN CSS选择器文档节点的领域种类。
+   * @lang en Domain kind for a CSS selector documentation node.
+   */
   selector: "css-selector",
+  /**
+   * @lang zh-CN CSS自定义属性文档节点的领域种类。
+   * @lang en Domain kind for a CSS custom-property documentation node.
+   */
   customProperty: "css-custom-property",
+  /**
+   * @lang zh-CN CSS修饰状态文档节点的领域种类。
+   * @lang en Domain kind for a CSS modifier documentation node.
+   */
   modifier: "css-modifier",
+  /**
+   * @lang zh-CN CSS关键帧动画文档节点的领域种类。
+   * @lang en Domain kind for a CSS keyframes documentation node.
+   */
   keyframes: "css-keyframes",
+  /**
+   * @lang zh-CN CSS级联层文档节点的领域种类。
+   * @lang en Domain kind for a CSS cascade-layer documentation node.
+   */
   layer: "css-layer",
+  /**
+   * @lang zh-CN CSS媒体查询文档节点的领域种类。
+   * @lang en Domain kind for a CSS media-query documentation node.
+   */
   mediaQuery: "css-media-query",
+  /**
+   * @lang zh-CN CSS容器查询文档节点的领域种类。
+   * @lang en Domain kind for a CSS container-query documentation node.
+   */
   containerQuery: "css-container-query",
+  /**
+   * @lang zh-CN 设计令牌文档节点的领域种类。
+   * @lang en Domain kind for a design-token documentation node.
+   */
   designToken: "design-token"
 });
 
