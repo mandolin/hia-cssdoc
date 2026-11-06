@@ -94,3 +94,9 @@ public locators. Paths are checked lexically, not as a symlink sandbox. Use an
 authorized workspace. Source bodies, token metadata and documentation text must
 be authorized/sanitized by the caller. Progress includes relative input paths;
 provide a suitable callback sink. No npm or network publication is executed.
+
+## Pure metadata entry
+
+Subpath `./metadata` exports `CSSDOC_RUNNER_VERSION`, `CSSDOC_INPUT_KINDS` and `CSSDOC_OUTPUT_KINDS` from pure definitions. The arrays are frozen, and the root API exposes the same references. This entry performs no runner operations.
+
+中文说明。metadata子入口提供同一版本与冻结输入/输出种类，适用于发现和文档工具。声明分支与运行分支分别提供，构建使用原运行API。

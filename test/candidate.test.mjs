@@ -74,6 +74,7 @@ test("actual public API documentation gate covers all entries", () => {
   const result = spawnSync(process.execPath, [path.join(root, "scripts/check-api-docs.mjs")], { cwd: root, encoding: "utf8" });
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /46 exports, 4 resources, 1 bins/);
+  assert.match(result.stdout, /1 metadata entries \(3 exports\)/);
 });
 
 test("local candidate explicitly refuses publish-ready without contacting npm", () => {

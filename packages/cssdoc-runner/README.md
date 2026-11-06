@@ -86,3 +86,13 @@ all public entries, ownership, defaults, effects, source precision and privacy.
 The package is a 1.0.0 source candidate; registry availability is a separate gate.
 
 中文：公开责任与迁移文档随包提供；源码候选不代表已经发布npm。
+
+## Pure metadata
+
+```js
+import { CSSDOC_RUNNER_VERSION, CSSDOC_INPUT_KINDS, CSSDOC_OUTPUT_KINDS } from "@hia-doc/cssdoc-runner/metadata";
+```
+
+This entry exposes the runner version and frozen input/output kind arrays from the same definitions used by the root API. It contains pure data definitions, with no runner execution dependencies.
+
+中文说明。metadata子入口提供版本及冻结的输入/输出种类，根入口与该入口引用同一定义。执行构建继续使用原运行API。
