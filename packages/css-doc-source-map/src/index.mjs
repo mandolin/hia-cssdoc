@@ -1,7 +1,8 @@
 /** @file CSSDoc到直接文档源码映射的纯投影，不读取正文。 @lang en Pure CSSDoc to direct documentation-source-map projection without source-body reads. */
 import { validateCssDocExtraction } from "@hia-doc/cssdoc-spec";
-/** @lang zh-CN 精确内容策略白名单，不代表授权或实际嵌入正文。 @lang en Exact content-policy allowlist, not authorization or evidence of embedded text. */
-export const CSS_DOC_SOURCE_CONTENT_POLICIES = Object.freeze(["none", "reference", "embed"]);
+/** @lang zh-CN 复用包内纯数据定义的同一冻结对象。 @lang en Reuses the same frozen objects from owner-local plain-data definitions. */
+import {CSS_DOC_SOURCE_CONTENT_POLICIES} from './frozen-arrays.mjs';
+export {CSS_DOC_SOURCE_CONTENT_POLICIES};
 /**
  * 当前 CSSDoc 映射写入器所发出的文档源码映射契约身份。
  *

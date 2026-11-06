@@ -67,23 +67,9 @@ export const CSSDOC_SYMBOL_KINDS = Object.freeze({
    */
   designToken: "design-token"
 });
-
-/** @lang zh-CN 识别标签集合，识别不等于各标签都有独立符号。 @lang en Recognized tags; recognition does not mean every tag has its own symbol. */
-export const CSSDOC_TAGS = Object.freeze([
-  "cssdoc",
-  "component",
-  "selector",
-  "modifier",
-  "cssprop",
-  "token",
-  "layer",
-  "media",
-  "container",
-  "keyframes",
-  "description",
-  "example",
-  "lang"
-]);
+/** @lang zh-CN 复用包内纯数据定义的同一冻结对象。 @lang en Reuses the same frozen objects from owner-local plain-data definitions. */
+import {CSSDOC_TAGS} from './frozen-arrays.mjs';
+export {CSSDOC_TAGS};
 
 /** @lang zh-CN 新1.0.0固定schema；保留扩展和原字符串类型，不扩大nullable或CSS语法。 @lang en Fixed1.0.0 schema preserving extensions and original string types, without broader nullable or CSS syntax. */
 import currentExtractionSchema from "./schemas/hia-cssdoc-extraction-1.0.0.schema.json" with { type: "json" };
