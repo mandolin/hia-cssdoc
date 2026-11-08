@@ -4,8 +4,7 @@ import { validateCssDocExtraction } from "@hia-doc/cssdoc-spec";
 import {CSS_DOC_SOURCE_CONTENT_POLICIES} from './frozen-arrays.mjs';
 export {CSS_DOC_SOURCE_CONTENT_POLICIES};
 /**
- * 当前 CSSDoc 映射写入器所发出的文档源码映射契约身份。
- *
+ * @lang zh-CN 当前 CSSDoc 映射写入器所发出的文档源码映射契约身份。
  * @lang en The documentation source-map contract identity emitted by the current CSSDoc map writer.
  */
 export const CSS_DOC_SOURCE_MAP_CONTRACT_VERSION = "1.1.0";
@@ -36,9 +35,8 @@ export function normalizeSourcesContentPolicy(policy) {
 }
 
 /**
- * 从 CSSDoc 提取工件生成直接来源映射；逐条引用保留范围精度证据。
- * 已证的 PostCSS 规则使用包含式 UTF-16 列，其余节点和设计令牌占位范围保持未知。
- *
+ * @lang zh-CN 从 CSSDoc 提取工件生成直接来源映射；逐条引用保留范围精度证据。
+已证的 PostCSS 规则使用包含式 UTF-16 列，其余节点和设计令牌占位范围保持未知。
  * @lang en Builds a direct-source map from a CSSDoc extraction artifact. Proven PostCSS rule locations use inclusive UTF-16 columns; unproven nodes and synthetic design-token ranges stay unknown per reference.
  * @param {Object} options <lang><zh-CN>提取工件及公开安全的相对路径、内容策略。</zh-CN><en>Extraction artifact, public-safe relative paths and content policy.</en></lang>
  * @param {Object} options.extraction <lang><zh-CN>必需的 CSS 提取件。</zh-CN><en>Required CSS extraction.</en></lang>
