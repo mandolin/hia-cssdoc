@@ -1,25 +1,52 @@
-/** @lang zh-CN 提取工件中性身份，与包及主SDK版本独立。 @lang en Neutral extraction identity independent of package and main SDK versions. */
+/**
+ * @lang zh-CN 提取工件中性身份，与包及主SDK版本独立。
+ * @lang en Neutral extraction identity independent of package and main SDK versions.
+ */
 export const CSSDOC_EXTRACTION_CONTRACT = "hia-cssdoc-extraction";
-/** @lang zh-CN 确认B的新wire版本，旧版精确读取另保留。 @lang en Confirmed B wire version with exact legacy reading retained separately. */
+/**
+ * @lang zh-CN 确认B的新wire版本，旧版精确读取另保留。
+ * @lang en Confirmed B wire version with exact legacy reading retained separately.
+ */
 export const CSSDOC_EXTRACTION_CONTRACT_VERSION = "1.0.0";
-/** @lang zh-CN 公开schema身份，不执行网络读取。 @lang en Public schema identity without network reads. */
+/**
+ * @lang zh-CN 公开schema身份，不执行网络读取。
+ * @lang en Public schema identity without network reads.
+ */
 export const CSSDOC_EXTRACTION_SCHEMA_ID = "https://mandolin.github.io/HIA-Documentation/schemas/hia-cssdoc-extraction-1.0.0.schema.json";
-/** @lang zh-CN 现有CSS/DTCG子集的工件profile身份，不等于官方七规范版本。 @lang en Artifact profile identity for the existing CSS/DTCG subset, distinct from the seven official profile specification versions. */
+/**
+ * @lang zh-CN 现有CSS/DTCG子集的工件profile身份，不等于官方七规范版本。
+ * @lang en Artifact profile identity for the existing CSS/DTCG subset, distinct from the seven official profile specification versions.
+ */
 export const CSSDOC_PROFILE_VERSION = "1.0.0";
 
 /** @lang zh-CN 旧模块原字节档案与精确读取/纯迁移入口。 @lang en Original legacy module archive and exact reading/pure migration entries. */
 import * as legacyExtraction from "./schema-legacy.mjs";
-/** @lang zh-CN 原档案提取schema的同一对象，不克隆或修改旧规则。 @lang en The original archived extraction-schema object without cloning or changing historical rules. */
+/**
+ * @lang zh-CN 原档案提取schema的同一对象，不克隆或修改旧规则。
+ * @lang en The original archived extraction-schema object without cloning or changing historical rules.
+ */
 export const CSSDOC_LEGACY_EXTRACTION_JSON_SCHEMA = legacyExtraction.CSSDOC_EXTRACTION_JSON_SCHEMA;
-/** @lang zh-CN 原档案提取schema身份，不读取URL。 @lang en Original archived extraction-schema identity, without URL reads. */
+/**
+ * @lang zh-CN 原档案提取schema身份，不读取URL。
+ * @lang en Original archived extraction-schema identity, without URL reads.
+ */
 export const CSSDOC_LEGACY_EXTRACTION_SCHEMA_ID = legacyExtraction.CSSDOC_EXTRACTION_SCHEMA_ID;
-/** @lang zh-CN 原档案提取契约版本，与当前版本独立。 @lang en Original archived extraction-contract version, independent of the current version. */
+/**
+ * @lang zh-CN 原档案提取契约版本，与当前版本独立。
+ * @lang en Original archived extraction-contract version, independent of the current version.
+ */
 export const CSSDOC_LEGACY_EXTRACTION_CONTRACT_VERSION = legacyExtraction.CSSDOC_EXTRACTION_CONTRACT_VERSION;
-/** @lang zh-CN 原档案领域profile版本，独立于包和全局规范版本。 @lang en Original archived domain-profile version, independent of package and global-specification versions. */
+/**
+ * @lang zh-CN 原档案领域profile版本，独立于包和全局规范版本。
+ * @lang en Original archived domain-profile version, independent of package and global-specification versions.
+ */
 export const CSSDOC_LEGACY_PROFILE_VERSION = legacyExtraction.CSSDOC_PROFILE_VERSION;
 export { getCssDocExtractionSchema, validateCssDocExtraction, migrateCssDocExtraction } from "./compatibility.mjs";
 
-/** @lang zh-CN 九类已支持的符号种类，浅冻结只读映射。 @lang en Read-only shallow-frozen mapping of nine supported symbol kinds. */
+/**
+ * @lang zh-CN 九类已支持的符号种类，浅冻结只读映射。
+ * @lang en Read-only shallow-frozen mapping of nine supported symbol kinds.
+ */
 export const CSSDOC_SYMBOL_KINDS = Object.freeze({
   /**
    * @lang zh-CN 组件样式文档节点的领域种类。
@@ -73,7 +100,10 @@ export {CSSDOC_TAGS};
 
 /** @lang zh-CN 新1.0.0固定schema；保留扩展和原字符串类型，不扩大nullable或CSS语法。 @lang en Fixed1.0.0 schema preserving extensions and original string types, without broader nullable or CSS syntax. */
 import currentExtractionSchema from "./schemas/hia-cssdoc-extraction-1.0.0.schema.json" with { type: "json" };
-/** @lang zh-CN 随包固定schema对象，与JSON子路径内容一致；不填默认、不改输入。 @lang en Fixed bundled schema object matching the JSON subpath, without defaults or input mutation. */
+/**
+ * @lang zh-CN 随包固定schema对象，与JSON子路径内容一致；不填默认、不改输入。
+ * @lang en Fixed bundled schema object matching the JSON subpath, without defaults or input mutation.
+ */
 export const CSSDOC_EXTRACTION_JSON_SCHEMA = Object.freeze(currentExtractionSchema);
 
 const TAG_TO_KIND = Object.freeze({

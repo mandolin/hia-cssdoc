@@ -1,7 +1,10 @@
 /** @file @lang zh-CN 生产器描述符的纯数据定义，执行函数由原入口提供。 @lang en Pure producer descriptor definitions with execution functions supplied by the original entry. */
 import {CSSDOC_RUNNER_VERSION, CSSDOC_INPUT_KINDS, CSSDOC_OUTPUT_KINDS} from '@hia-doc/cssdoc-runner/metadata';
 
-/** @lang zh-CN 已确认SDK1.0.0描述；仅一次执行/来源，无watch或增量。 @lang en Approved SDK1.0.0 descriptor with one-shot linkage, no watch or incremental support. */
+/**
+ * @lang zh-CN 已确认SDK1.0.0描述；仅一次执行/来源，无watch或增量。
+ * @lang en Approved SDK1.0.0 descriptor with one-shot linkage, no watch or incremental support.
+ */
 export const cssdocProducerDescriptor = Object.freeze({
   /**
    * @lang zh-CN 生产器协议身份，用于宿主发现和校验。
