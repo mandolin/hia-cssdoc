@@ -96,3 +96,44 @@ import { CSSDOC_RUNNER_VERSION, CSSDOC_INPUT_KINDS, CSSDOC_OUTPUT_KINDS } from "
 This entry exposes the runner version and frozen input/output kind arrays from the same definitions used by the root API. It contains pure data definitions, with no runner execution dependencies.
 
 中文说明。metadata子入口提供版本及冻结的输入/输出种类，根入口与该入口引用同一定义。执行构建继续使用原运行API。
+
+## Command reference
+
+中文。在本地npm脚本调用，或用 `npm exec --offline -- cssdoc --help`。帮助退出0，version输出运行器版本。构建仅success退出0，partial/failed或参数/配置错误退出1。未知参数拒绝，错误文本受控。会写产物和结果清单，可能覆盖旧文件，失败或部分成功时可留有写入。
+
+English. Invoke through a local npm script or `npm exec --offline -- cssdoc --help`. Help exits 0 and version prints the runner version. Only successful builds exit 0; partial/failed builds and argument/config errors exit 1. Unknown options are rejected with controlled errors. Artifacts and a result manifest are written, existing files may be replaced, and failed/partial runs may leave writes.
+
+| Option | 中文 | English |
+| --- | --- | --- |
+| `--config/-c <file>` | 调用目录下的JSON配置 | JSON config resolved from cwd |
+| `--workspace-root <dir>` | 仅直接模式，相对调用目录，默认`.` | Direct mode only, cwd-relative, default `.` |
+| `--kind/-k <kind>` | 仅直接模式，css/postcss-css/design-token | Direct mode only, css/postcss-css/design-token |
+| `--out-dir/-o <dir>` | 两模式覆盖，相对工作区 | Override in both modes, workspace-relative |
+| `--sources-content-policy <policy>` | 两模式覆盖，none/reference/embed，默认none | Override in both modes, none/reference/embed, default none |
+| `--no-doc-source-map` | 两模式关闭地图，默认启用 | Disable maps in both modes, enabled by default |
+| `--help/-h` | 帮助，退出0 | Help, exit 0 |
+| `--version/-v` | 运行器实现版本 | Runner implementation version |
+| 位置输入 / positional inputs | 仅直接模式，必填且相对工作区 | Direct mode only, required and workspace-relative |
+
+### Config and direct modes
+
+中文。配置workspaceRoot相对配置目录，默认`.`；outputDirectory相对工作区，默认dist/cssdoc。配置模式忽略workspace-root、kind和位置输入；out-dir、sources-content-policy与no-doc-source-map读取后生效。直接模式按文件名推断kind或采用显式值。embed会把源码正文写入产物，使用前须确认公开许可。
+
+English. Config workspaceRoot uses the config directory and defaults to `.`; outputDirectory is workspace-relative and defaults to dist/cssdoc. Config mode ignores workspace-root, kind, and positionals, then applies out-dir, sources-content-policy, and no-doc-source-map. Direct mode infers kind from filenames unless supplied. Confirm publication permission before embed writes source bodies into artifacts.
+
+保存为项目根的cssdoc.config.json，并准备获准sample.css。Save at the project root and prepare authorized sample.css.
+
+```json
+{"schemaVersion":"1.0.0","workspaceRoot":".","outputDirectory":"dist/cssdoc","inputs":[{"kind":"css","path":"sample.css"}],"options":{"sourcesContentPolicy":"none"}}
+```
+
+```sh
+npm exec --offline -- cssdoc --config cssdoc.config.json
+npm exec --offline -- cssdoc --workspace-root . --kind css --out-dir dist/css-direct --sources-content-policy none --no-doc-source-map sample.css
+```
+
+### Installation and version routing
+
+中文。本页为1.0.0源码候选，候选归档连同配套内部依赖安装，离线安装另需第三方缓存。走注册表时先用 `npm view @hia-doc/cssdoc-runner@1.0.0 version` 并核配套版本，再安装。用 `npm list @hia-doc/cssdoc-runner --depth=0` 核本地版本。旧0.1.x教程保留原包范围，当前配置和提取/profile为1.0.0，源码地图版本独立。
+
+English. This is the 1.0.0 source candidate. Install its archive with matching internal dependencies and prepare a third-party cache for offline installs. For registry installation, check `npm view @hia-doc/cssdoc-runner@1.0.0 version` and matching dependencies first. Use `npm list @hia-doc/cssdoc-runner --depth=0` for the local version. Older 0.1.x tutorials retain their scope. Current config/extraction/profile identities are 1.0.0, while source maps are versioned independently.

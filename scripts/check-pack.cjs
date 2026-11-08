@@ -1,8 +1,14 @@
 const { spawnSync } = require("node:child_process");
+const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 
 const root = path.resolve(__dirname, "..");
+// <lang><zh-CN>随包CLI参考须保留全部选项和模式/安装路由，语义由独立实际命令验证。</zh-CN><en>The packaged CLI reference retains every option and mode/installation routes; independent command runs verify semantics.</en></lang>
+const runnerReadme = fs.readFileSync(path.join(root, "packages/cssdoc-runner/README.md"), "utf8");
+for (const token of ["## Command reference", "### Config and direct modes", "### Installation and version routing", "--config/-c", "--workspace-root", "--kind/-k", "--out-dir/-o", "--sources-content-policy", "--no-doc-source-map", "--help/-h", "--version/-v"]) {
+  assert.ok(runnerReadme.includes(token), `Runner documentation is missing ${token}.`);
+}
 const packageRoots = fs.readdirSync(path.join(root, "packages"), { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) => path.join(root, "packages", entry.name))
