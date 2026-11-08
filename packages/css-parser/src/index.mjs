@@ -2,6 +2,8 @@
 import postcss from "postcss";
 
 /**
+ * @lang zh-CN 使用固定PostCSS样式表解析器解析显式文本，返回调用方可变的原生AST与相对来源记录。
+ * @lang en Parses explicit text with the fixed PostCSS stylesheet parser, returning a caller-mutable native AST and relative provenance record.
  * @param {string} source <lang><zh-CN>显式CSS文本。</zh-CN><en>Explicit CSS text.</en></lang>
  * @param {Object} [options] <lang><zh-CN>解析来源配置。</zh-CN><en>Parser source options.</en></lang>
  * @param {string} [options.path="input.css"] <lang><zh-CN>安全相对来源。</zh-CN><en>Safe relative source.</en></lang>
@@ -31,12 +33,18 @@ export function parseCss(source, options = {}) {
   };
 }
 
-/** @param {object} node <lang><zh-CN>原生PostCSS节点。</zh-CN><en>Native PostCSS node.</en></lang> @returns {object|null} <lang><zh-CN>同一个source引用或null，不拷贝/规范化坐标，无I/O。</zh-CN><en>The same source reference or null, without coordinate copying/normalization or I/O.</en></lang> */
+/**
+ * @lang zh-CN 返回PostCSS节点原始source对象引用或null，位置沿用解析器原生表示。
+ * @lang en Returns a PostCSS node's original source object reference or null, retaining the parser's native location representation.
+ * @param {object} node <lang><zh-CN>原生PostCSS节点。</zh-CN><en>Native PostCSS node.</en></lang> @returns {object|null} <lang><zh-CN>同一个source引用或null，不拷贝/规范化坐标，无I/O。</zh-CN><en>The same source reference or null, without coordinate copying/normalization or I/O.</en></lang>
+ */
 export function getCssNodeLocation(node) {
   return node?.source ?? null;
 }
 
 /**
+ * @lang zh-CN 将来源定位器转换为正斜杠相对路径，并以词法规则拒绝空值、URI、盘符、绝对及父级路径。
+ * @lang en Normalizes a source locator to a slash-separated relative path and lexically refuses empty values, URIs, drive-qualified, absolute and parent paths.
  * @param {unknown} sourcePath <lang><zh-CN>调用方显式来源定位器。</zh-CN><en>Explicit caller source locator.</en></lang>
  * @returns {string} <lang><zh-CN>正斜杠安全相对路径；仅词法检查，不是symlink沙箱。</zh-CN><en>Slash-normalized safe relative path; lexical validation, not a symlink sandbox.</en></lang>
  * @throws {TypeError} <lang><zh-CN>非字符串/URI/盘符/父级路径固定拒绝，不回显输入。</zh-CN><en>Fixed refusal of nonstrings, URIs, drive and parent paths without echoing input.</en></lang>

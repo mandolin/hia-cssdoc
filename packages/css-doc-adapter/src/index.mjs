@@ -8,7 +8,11 @@ const HIA_CORE_SCHEMA_VERSION = "0.2.0";
 const HIA_SOURCE_MODEL = "hia-source";
 const HIA_SOURCE_MODEL_VERSION = "0.2.0";
 
-/** @param {object} artifact <lang><zh-CN>精确已支持旧/新JSON提取件，扩展必须为JSON。</zh-CN><en>Exactly supported old/current JSON extraction with JSON extensions.</en></lang> @param {object} [options] <lang><zh-CN>身份/标题/语言覆写。</zh-CN><en>Identity/title/locale overrides.</en></lang> @returns {object} <lang><zh-CN>新核心文档；i18n与部分metadata仍共享输入嵌套对象；无I/O。</zh-CN><en>Fresh core document; i18n and some metadata share nested input objects; no I/O.</en></lang> @throws {TypeError} <lang><zh-CN>未知版本或不合法结构拒绝。</zh-CN><en>Rejects unknown versions or invalid structure.</en></lang> */
+/**
+ * @lang zh-CN 校验精确旧版或当前CSS提取件后构造核心文档，保留符号身份及语言和来源关联。
+ * @lang en Constructs a core document after validating an exact legacy or current CSS extraction, retaining symbol identities, locales and source associations.
+ * @param {object} artifact <lang><zh-CN>精确已支持旧/新JSON提取件，扩展必须为JSON。</zh-CN><en>Exactly supported old/current JSON extraction with JSON extensions.</en></lang> @param {object} [options] <lang><zh-CN>身份/标题/语言覆写。</zh-CN><en>Identity/title/locale overrides.</en></lang> @returns {object} <lang><zh-CN>新核心文档；i18n与部分metadata仍共享输入嵌套对象；无I/O。</zh-CN><en>Fresh core document; i18n and some metadata share nested input objects; no I/O.</en></lang> @throws {TypeError} <lang><zh-CN>未知版本或不合法结构拒绝。</zh-CN><en>Rejects unknown versions or invalid structure.</en></lang>
+ */
 export function cssExtractionToHiaDocument(artifact, options = {}) {
   assertCssExtractionArtifact(artifact);
   // <lang><zh-CN>标题按调用方覆写或来源文件名确定，不读取文件。</zh-CN><en>The caller override or source filename determines the title without file reads.</en></lang>
@@ -45,7 +49,11 @@ export function cssExtractionToHiaDocument(artifact, options = {}) {
   };
 }
 
-/** @param {unknown} artifact <lang><zh-CN>普通JSON提取工件。</zh-CN><en>Ordinary JSON extraction artifact.</en></lang> @returns {void} <lang><zh-CN>精确旧/新结构有效时无值且不改输入。</zh-CN><en>No value for valid exact old/current structure; input unchanged.</en></lang> @throws {TypeError} <lang><zh-CN>固定公开拒绝，不回显schema诊断。</zh-CN><en>Fixed public refusal without raw schema diagnostics.</en></lang> */
+/**
+ * @lang zh-CN 校验CSS提取件的受支持精确身份与JSON结构，失败时抛出固定公开TypeError。
+ * @lang en Validates a CSS extraction's supported exact identity and JSON structure, throwing a fixed public TypeError on failure.
+ * @param {unknown} artifact <lang><zh-CN>普通JSON提取工件。</zh-CN><en>Ordinary JSON extraction artifact.</en></lang> @returns {void} <lang><zh-CN>精确旧/新结构有效时无值且不改输入。</zh-CN><en>No value for valid exact old/current structure; input unchanged.</en></lang> @throws {TypeError} <lang><zh-CN>固定公开拒绝，不回显schema诊断。</zh-CN><en>Fixed public refusal without raw schema diagnostics.</en></lang>
+ */
 export function assertCssExtractionArtifact(artifact) {
   if (validateCssDocExtraction(artifact).length) throw new TypeError("Unsupported or invalid CSSDoc extraction.");
 }

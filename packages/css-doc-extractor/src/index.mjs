@@ -15,6 +15,8 @@ const HIA_TEXT_I18N_MODEL = "hia-text-i18n";
 const HIA_TEXT_I18N_MODEL_VERSION = "0.2.0";
 
 /**
+ * @lang zh-CN 将紧邻CSS目标的显式注释标签投影为文档符号，生成受源码内容策略控制的当前提取件。
+ * @lang en Projects explicit comment tags adjacent to CSS targets into documentation symbols, producing a current extraction governed by the source-content policy.
  * @param {string} source <lang><zh-CN>显式CSS文本，不读文件。</zh-CN><en>Explicit CSS text without file reads.</en></lang>
  * @param {object} [options] <lang><zh-CN>path默认input.css，defaultLocale默认en，sourcesContentPolicy默认none；仅embed保留正文。</zh-CN><en>path defaults to input.css, defaultLocale to en, sourcesContentPolicy to none; only embed retains the body.</en></lang>
  * @returns {object} <lang><zh-CN>当前CSSDoc JSON，不改输入；同目标多个符号可共享嵌套来源/注释对象。</zh-CN><en>Current CSSDoc JSON without input mutation; multiple symbols on one target may share nested source/annotation objects.</en></lang>
@@ -110,6 +112,8 @@ export function extractCssDoc(source, options = {}) {
 }
 
 /**
+ * @lang zh-CN 规范化CSS注释换行和行首星号，分离标签与普通正文，再生成摘要和字段级多语言信息。
+ * @lang en Normalizes CSS comment newlines and leading asterisks, separates tags from prose, and produces a summary and field-level localization.
  * @param {string} rawComment <lang><zh-CN>注释正文；实现会字符串化，不宜传带自定义转换对象。</zh-CN><en>Comment body; implementation stringifies it, so avoid custom coercion objects.</en></lang>
  * @param {Object} [options] <lang><zh-CN>提取语言配置。</zh-CN><en>Extraction locale options.</en></lang>
  * @param {string} [options.defaultLocale="en"] <lang><zh-CN>默认文本语言。</zh-CN><en>Default text locale.</en></lang>

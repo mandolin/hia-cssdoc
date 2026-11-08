@@ -9,7 +9,11 @@ export {cssdocProducerDescriptor} from './descriptor.mjs';
  */
 export const cssdocProducer = Object.freeze({
   descriptor: cssdocProducerDescriptor,
-  /** @param {object} request <lang><zh-CN>显式runner请求。</zh-CN><en>Explicit runner request.</en></lang> @param {object} [context] <lang><zh-CN>signal/同步进度。</zh-CN><en>signal/synchronous progress.</en></lang> @returns {Promise<object>} <lang><zh-CN>同一runner结果与失败语义，非原子落盘。</zh-CN><en>The same runner result/failure semantics with non-atomic writes.</en></lang> */
+  /**
+   * @lang zh-CN 将显式请求及中止/进度上下文委派给CSS文档运行器，返回其异步生产结果。
+   * @lang en Delegates the explicit request and abort/progress context to the CSS documentation runner and returns its asynchronous production result.
+   * @param {object} request <lang><zh-CN>显式runner请求。</zh-CN><en>Explicit runner request.</en></lang> @param {object} [context] <lang><zh-CN>signal/同步进度。</zh-CN><en>signal/synchronous progress.</en></lang> @returns {Promise<object>} <lang><zh-CN>同一runner结果与失败语义，非原子落盘。</zh-CN><en>The same runner result/failure semantics with non-atomic writes.</en></lang>
+   */
   produce(request, context = {}) {
     return runCssDoc(request, context);
   }

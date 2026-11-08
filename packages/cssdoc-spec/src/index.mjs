@@ -119,6 +119,8 @@ const TAG_TO_KIND = Object.freeze({
 });
 
 /**
+ * @lang zh-CN 按原样字符串查询CSS文档标签到符号种类的自有注册表，未知标签返回null。
+ * @lang en Looks up an unchanged string in the CSS documentation tag-to-symbol-kind registry's own entries, returning null for unknown tags.
  * @param {string} tag <lang><zh-CN>规范化标签；不调用用户类型转换。</zh-CN><en>Canonical tag without invoking caller coercion.</en></lang>
  * @returns {string|null} <lang><zh-CN>显式自有种类，未知/原型/非字符串为null。</zh-CN><en>Explicit own kind; unknown, prototype and nonstring values return null.</en></lang>
  */
@@ -126,7 +128,11 @@ export function getCssDocSymbolKind(tag) {
   return typeof tag === "string" && Object.hasOwn(TAG_TO_KIND, tag) ? TAG_TO_KIND[tag] : null;
 }
 
-/** @param {unknown} tag <lang><zh-CN>精确规范标签，不做类型转换。</zh-CN><en>Exact canonical tag without coercion.</en></lang> @returns {boolean} <lang><zh-CN>是否在标签列表，无I/O。</zh-CN><en>Whether the tag is listed, without I/O.</en></lang> */
+/**
+ * @lang zh-CN 按精确规范名称匹配CSS文档标签列表，返回识别结果。
+ * @lang en Matches exact canonical names against the CSS documentation tag list and returns the recognition result.
+ * @param {unknown} tag <lang><zh-CN>精确规范标签，不做类型转换。</zh-CN><en>Exact canonical tag without coercion.</en></lang> @returns {boolean} <lang><zh-CN>是否在标签列表，无I/O。</zh-CN><en>Whether the tag is listed, without I/O.</en></lang>
+ */
 export function isCssDocTag(tag) {
   return CSSDOC_TAGS.includes(tag);
 }

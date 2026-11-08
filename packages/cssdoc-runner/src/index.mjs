@@ -34,6 +34,8 @@ const PRODUCER_ID = "cssdoc";
 const SAFE_ID_PATTERN = /^[a-z0-9][a-z0-9._-]*$/;
 
 /**
+ * @lang zh-CN 顺序处理显式CSS或设计令牌输入并写出提取件、核心文档及可选映射，以累积诊断区分success、partial与failed。
+ * @lang en Processes explicit CSS or design-token inputs sequentially, writes extractions, core documents and optional maps, and uses accumulated diagnostics to distinguish success, partial and failed results.
  * @param {object} request <lang><zh-CN>绝对运行根与非空安全相对输入；三种kind/选项见包README。</zh-CN><en>Absolute runtime roots and nonempty safe relative inputs; see package README for the three kinds/options.</en></lang>
  * @param {object} [context] <lang><zh-CN>signal在每个输入前检查；reportProgress同步回调，异常传播。</zh-CN><en>signal is checked before each input; reportProgress is synchronous and its exceptions propagate.</en></lang>
  * @returns {Promise<object>} <lang><zh-CN>已确认主SDK1.0.0结果，success/partial/failed；不返回运行绝对路径。</zh-CN><en>Approved SDK1.0.0 result with success/partial/failed; no runtime absolute paths.</en></lang>
@@ -111,6 +113,8 @@ export async function runCssDoc(request, context = {}) {
 }
 
 /**
+ * @lang zh-CN 读取并验证精确新旧版本JSON配置，按配置目录与工作根解析运行目录，返回规范化请求。
+ * @lang en Reads and validates exact current or legacy JSON configs, resolves runtime directories against the config directory and workspace root, and returns a normalized request.
  * @param {string} configPath <lang><zh-CN>配置定位器；相对cwd。</zh-CN><en>Config locator relative to cwd.</en></lang>
  * @param {Object} [options] <lang><zh-CN>配置加载选项。</zh-CN><en>Config loading options.</en></lang>
  * @param {string} [options.cwd] <lang><zh-CN>默认process.cwd，仅内存绝对路径。</zh-CN><en>Defaults to process.cwd; absolute paths remain in memory.</en></lang>
@@ -144,7 +148,11 @@ export async function loadCssDocConfig(configPath, options = {}) {
   });
 }
 
-/** @param {string} inputPath <lang><zh-CN>输入名称。</zh-CN><en>Input name.</en></lang> @returns {string} <lang><zh-CN>.json为design-token，.pcss/.postcss.css为postcss-css，否则css；无I/O。</zh-CN><en>.json gives design-token, .pcss/.postcss.css gives postcss-css, otherwise css; no I/O.</en></lang> */
+/**
+ * @lang zh-CN 仅按文件名后缀推断设计令牌、PostCSS或普通CSS输入种类，默认css。
+ * @lang en Infers design-token, PostCSS or ordinary CSS input kinds from filename suffixes alone, defaulting to css.
+ * @param {string} inputPath <lang><zh-CN>输入名称。</zh-CN><en>Input name.</en></lang> @returns {string} <lang><zh-CN>.json为design-token，.pcss/.postcss.css为postcss-css，否则css；无I/O。</zh-CN><en>.json gives design-token, .pcss/.postcss.css gives postcss-css, otherwise css; no I/O.</en></lang>
+ */
 export function inferCssDocInputKind(inputPath) {
   // <lang><zh-CN>名称规范化只为后缀匹配，不执行文件读取或发现。</zh-CN><en>Name normalization serves suffix matching only, without reads or discovery.</en></lang>
   const normalized = String(inputPath).replaceAll("\\", "/").toLowerCase();

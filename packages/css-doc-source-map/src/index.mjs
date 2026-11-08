@@ -10,7 +10,11 @@ export {CSS_DOC_SOURCE_CONTENT_POLICIES};
  */
 export const CSS_DOC_SOURCE_MAP_CONTRACT_VERSION = "1.1.0";
 
-/** @param {object} [options] <lang><zh-CN>href默认null，policy默认none；href由调用方负责有效/公开。</zh-CN><en>href defaults to null, policy to none; the caller owns href validity/disclosure.</en></lang> @returns {object} <lang><zh-CN>新引用对象，不读取href。</zh-CN><en>Fresh reference without reading href.</en></lang> @throws {TypeError} <lang><zh-CN>策略无效时固定拒绝。</zh-CN><en>Fixed refusal for invalid policy.</en></lang> */
+/**
+ * @lang zh-CN 按调用方链接与精确内容策略构造新的CSS文档源码映射引用，缺省链接为null且策略为none。
+ * @lang en Constructs a fresh CSS documentation source-map reference from the caller's link and exact content policy, defaulting the link to null and policy to none.
+ * @param {object} [options] <lang><zh-CN>href默认null，policy默认none；href由调用方负责有效/公开。</zh-CN><en>href defaults to null, policy to none; the caller owns href validity/disclosure.</en></lang> @returns {object} <lang><zh-CN>新引用对象，不读取href。</zh-CN><en>Fresh reference without reading href.</en></lang> @throws {TypeError} <lang><zh-CN>策略无效时固定拒绝。</zh-CN><en>Fixed refusal for invalid policy.</en></lang>
+ */
 export function createCssDocSourceMapRef(options = {}) {
   return {
     kind: "hia-doc-source-map-ref",
@@ -19,7 +23,11 @@ export function createCssDocSourceMapRef(options = {}) {
   };
 }
 
-/** @param {string} policy <lang><zh-CN>精确none/reference/embed。</zh-CN><en>Exact none/reference/embed.</en></lang> @returns {string} <lang><zh-CN>同一有效策略。</zh-CN><en>The same valid policy.</en></lang> @throws {TypeError} <lang><zh-CN>固定拒绝，不打印原文。</zh-CN><en>Fixed refusal without raw text.</en></lang> */
+/**
+ * @lang zh-CN 精确校验CSS源码内容策略none、reference或embed，返回同一有效策略值。
+ * @lang en Validates the exact CSS source-content policies none, reference or embed and returns the same valid policy value.
+ * @param {string} policy <lang><zh-CN>精确none/reference/embed。</zh-CN><en>Exact none/reference/embed.</en></lang> @returns {string} <lang><zh-CN>同一有效策略。</zh-CN><en>The same valid policy.</en></lang> @throws {TypeError} <lang><zh-CN>固定拒绝，不打印原文。</zh-CN><en>Fixed refusal without raw text.</en></lang>
+ */
 export function normalizeSourcesContentPolicy(policy) {
   if (!CSS_DOC_SOURCE_CONTENT_POLICIES.includes(policy)) {
     throw new TypeError("Unsupported CSSDoc sourcesContent policy.");

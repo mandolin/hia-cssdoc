@@ -10,6 +10,8 @@ import {
 } from "@hia-doc/cssdoc-spec";
 
 /**
+ * @lang zh-CN 按既有$value、$root及继承$type子集遍历设计令牌，生成保留组名称和合成1:1源码范围的CSS提取件。
+ * @lang en Traverses design tokens under the existing $value, $root and inherited-$type subset, producing a CSS extraction retaining group names and synthetic 1:1 source ranges.
  * @param {object} tokens <lang><zh-CN>已解析的普通无环JSON；支持$value/group/$root/继承$type子集，不是完整validator。</zh-CN><en>Parsed ordinary acyclic JSON; supports the $value/group/$root/inherited-$type subset, not a complete validator.</en></lang>
  * @param {Object} [options] <lang><zh-CN>设计令牌来源配置。</zh-CN><en>Design-token source options.</en></lang>
  * @param {string} [options.path="tokens.json"] <lang><zh-CN>来源相对路径。</zh-CN><en>Relative source path.</en></lang>
