@@ -1,0 +1,12 @@
+{
+  "coreContractVersion": "1.0.0",
+  "commandContractVersion": "0.1.0-draft",
+  "outputs": {
+    "description.json": "ee10f312740eb298fd9a212825968d9eae04bab14dbcf9d200097d45eeba7600",
+    "observations.json": "72b0a87611979ddd410240eb9d89b357182bf4b62e3d8c59f72fc8e4f5dd1959",
+    "document.hia.json": "4b6e2c234b0f49a14a0c19a9ec28885ff2915355b949063fdc7317a7921a3afa",
+    "command.schema.json": "c291f19d9bdbbd61db167edb9d268af83e7f36ec320263b13e211c798db70c32",
+    "document.schema.json": "404d90c3bd2b2b90e4723767c75c3a3bf8e713786a81c9583f7c93f5f4938895",
+    "help.mjs": "07e86d500ab31a5ebed3b6e8f2044611af4e5862f8ad1e97f5efed102d4a0e15"
+  }
+}

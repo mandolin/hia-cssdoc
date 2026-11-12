@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+/**
+ * @file
+ * @lang zh-CN CSSDoc严格解析优先的命令入口，帮助使用随包生成的静态双语内容。
+ * @lang en CSSDoc's parse-first command entry, using packaged generated bilingual help.
+ */
+
 import path from "node:path";
 import { parseArgs } from "node:util";
 
@@ -28,7 +34,9 @@ try {
   });
 
   if (values.help) {
-    process.stdout.write(`CSSDoc ${CSSDOC_RUNNER_VERSION}\n\nUsage:\n  cssdoc --config cssdoc.config.json\n  cssdoc [options] <input...>\n\nOptions:\n  -c, --config <path>\n  -k, --kind <kind>\n  -o, --out-dir <path>\n      --workspace-root <path>\n      --sources-content-policy <none|reference|embed>\n      --no-doc-source-map\n  -v, --version\n`);
+    // <lang><zh-CN>严格参数解析完成后才读取随包静态帮助，列宽只选择已确认两画布。</zh-CN><en>Load packaged static help only after strict argument parsing, selecting only the two confirmed canvases.</en></lang>
+    const { CSSDOC_HELP_80, CSSDOC_HELP_120 } = await import("./command-documentation/help.mjs");
+    process.stdout.write(process.stdout.isTTY && process.stdout.columns >= 120 ? CSSDOC_HELP_120 : CSSDOC_HELP_80);
     process.exit(0);
   }
 

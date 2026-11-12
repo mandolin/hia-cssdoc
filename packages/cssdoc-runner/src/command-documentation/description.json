@@ -1,0 +1,1860 @@
+{
+  "contract": "command-documentation",
+  "contractVersion": "0.1.0-draft",
+  "owner": {
+    "packageName": "@hia-doc/cssdoc-runner",
+    "packageVersion": "1.0.0"
+  },
+  "sources": [
+    {
+      "id": "src/cli.mjs",
+      "path": "src/cli.mjs",
+      "sha256": "b8dc623556d60300123586ff0d404f5ad171f06f69d6fc848d2cc91c6c16777b",
+      "language": "javascript"
+    },
+    {
+      "id": "src/command-content.mjs",
+      "path": "src/command-content.mjs",
+      "sha256": "97fc8e337e486edf00433c505195704f3d47ebb48cf146b78559d2c123751205",
+      "language": "javascript"
+    },
+    {
+      "id": "src/metadata.mjs",
+      "path": "src/metadata.mjs",
+      "sha256": "27aea061883a3105fe28271f6fd2a1e4b554a73cbfd114fdf19e081ed5447e62",
+      "language": "javascript"
+    },
+    {
+      "id": "src/index.mjs",
+      "path": "src/index.mjs",
+      "sha256": "e7b16c94a22b3b6a7335ce3e60a6471d7a79c614ee573c6873d8aba27e529b25",
+      "language": "javascript"
+    },
+    {
+      "id": "src/schema.mjs",
+      "path": "src/schema.mjs",
+      "sha256": "65a9c7f1765206e569d0da91624884b0cebabce64cb91d0ffc7f8aaf6f304894",
+      "language": "javascript"
+    },
+    {
+      "id": "src/config-compatibility.mjs",
+      "path": "src/config-compatibility.mjs",
+      "sha256": "48e84ecf7316979854c3ae78fcc38caa7a7dbc78d31f3311856614b7f4369bfc",
+      "language": "javascript"
+    },
+    {
+      "id": "src/schemas/cssdoc-config-0.1.0-draft.schema.json",
+      "path": "src/schemas/cssdoc-config-0.1.0-draft.schema.json",
+      "sha256": "7467524764faad0ab3f8a1a9248e022d097198d9584fe179ba9bae9f247a5fe0",
+      "language": "json"
+    },
+    {
+      "id": "src/schemas/cssdoc-config-1.0.0.schema.json",
+      "path": "src/schemas/cssdoc-config-1.0.0.schema.json",
+      "sha256": "fef1ee7048982d62f69e7cb805eed6f429e66af552a6d87b7070de44e3d739dc",
+      "language": "json"
+    },
+    {
+      "id": "README.md",
+      "path": "README.md",
+      "sha256": "ef98236f15a557579ddaeedf78603e8cb4f3c9495d93d1f8aef2a677ca8fc4a2",
+      "language": "markdown"
+    },
+    {
+      "id": "package.json",
+      "path": "package.json",
+      "sha256": "703eb7281b3d65c4a46e4ef8eeacccbd0b22e72afae46a382ab465390e64e9ef",
+      "language": "json"
+    }
+  ],
+  "commands": [
+    {
+      "id": "cssdoc",
+      "executable": "cssdoc",
+      "path": [],
+      "kind": "command",
+      "signature": "cssdoc [options] <input...>",
+      "i18n": {
+        "enabled": true,
+        "model": "hia-text-i18n",
+        "modelVersion": "1.0.0",
+        "defaultLocale": "zh-CN",
+        "locales": [
+          "zh-CN",
+          "en"
+        ],
+        "fields": {
+          "summary": {
+            "fieldPath": "summary",
+            "kind": "text",
+            "defaultLocale": "zh-CN",
+            "localizedText": {
+              "zh-CN": "提取CSS与设计令牌文档",
+              "en": "Extract CSS and design-token documentation"
+            }
+          },
+          "description": {
+            "fieldPath": "description",
+            "kind": "text",
+            "defaultLocale": "zh-CN",
+            "localizedText": {
+              "zh-CN": "显式配置或直接输入构造运行请求，提取CSS、PostCSS与设计令牌文档。",
+              "en": "Build a request from explicit configuration or direct inputs to extract CSS, PostCSS and design-token documentation."
+            }
+          },
+          "configUsage": {
+            "fieldPath": "configUsage",
+            "kind": "text",
+            "defaultLocale": "zh-CN",
+            "localizedText": {
+              "zh-CN": "cssdoc --config cssdoc.config.json",
+              "en": "cssdoc --config cssdoc.config.json"
+            }
+          },
+          "configOverrides": {
+            "fieldPath": "configOverrides",
+            "kind": "text",
+            "defaultLocale": "zh-CN",
+            "localizedText": {
+              "zh-CN": "配置模式中，CLI可覆盖out-dir、sources-content-policy及no-doc-source-map。",
+              "en": "In config mode CLI can override out-dir, sources-content-policy and no-doc-source-map."
+            }
+          },
+          "directOnly": {
+            "fieldPath": "directOnly",
+            "kind": "text",
+            "defaultLocale": "zh-CN",
+            "localizedText": {
+              "zh-CN": "kind及workspace-root用于直接模式；配置模式忽略它们和位置输入。",
+              "en": "kind and workspace-root apply to direct mode; config mode ignores them and positional inputs."
+            }
+          },
+          "paths": {
+            "fieldPath": "paths",
+            "kind": "text",
+            "defaultLocale": "zh-CN",
+            "localizedText": {
+              "zh-CN": "配置文件相对调用目录，配置工作区相对配置目录；输出相对所选工作区。",
+              "en": "Config paths use cwd, configured workspaces use the config directory, and output uses the selected workspace."
+            }
+          },
+          "writes": {
+            "fieldPath": "writes",
+            "kind": "text",
+            "defaultLocale": "zh-CN",
+            "localizedText": {
+              "zh-CN": "运行会创建目录并写工件，失败时可能已写部分文件。embed策略会写入获准公开的源码正文。",
+              "en": "Runs create directories and artifacts; failures may leave partial output. The embed policy includes source bodies authorized for publication."
+            }
+          },
+          "parsing": {
+            "fieldPath": "parsing",
+            "kind": "text",
+            "defaultLocale": "zh-CN",
+            "localizedText": {
+              "zh-CN": "Node严格解析先于帮助；未知、缺值或类型错误返回1。重复带值选项取最后值，--之后作为位置输入。",
+              "en": "Node strict parsing precedes help; unknown, missing or invalid option values exit 1. Repeated value options use the last value, and tokens after -- are positional inputs."
+            }
+          },
+          "offline": {
+            "fieldPath": "offline",
+            "kind": "text",
+            "defaultLocale": "zh-CN",
+            "localizedText": {
+              "zh-CN": "@hia-doc/cssdoc-runner/README.md",
+              "en": "@hia-doc/cssdoc-runner/README.md"
+            }
+          }
+        }
+      },
+      "displayVersion": {
+        "kind": "runner",
+        "value": "1.0.0"
+      },
+      "parsing": {
+        "helpOrder": "after-argument-validation",
+        "unknownOptions": "reject"
+      },
+      "options": [
+        {
+          "id": "config",
+          "kind": "option",
+          "name": "config",
+          "short": "c",
+          "valueType": "string",
+          "required": false,
+          "multiple": false,
+          "defaultRule": {
+            "kind": "not-applicable"
+          },
+          "i18n": {
+            "enabled": true,
+            "model": "hia-text-i18n",
+            "modelVersion": "1.0.0",
+            "defaultLocale": "zh-CN",
+            "locales": [
+              "zh-CN",
+              "en"
+            ],
+            "fields": {
+              "summary": {
+                "fieldPath": "summary",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "从JSON配置构造请求。",
+                  "en": "Build a request from JSON configuration."
+                }
+              },
+              "description": {
+                "fieldPath": "description",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "从JSON配置构造请求。",
+                  "en": "Build a request from JSON configuration."
+                }
+              },
+              "metavar": {
+                "fieldPath": "metavar",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "path",
+                  "en": "path"
+                }
+              }
+            }
+          },
+          "evidence": [
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs",
+              "range": {
+                "start": {
+                  "line": 21
+                },
+                "end": {
+                  "line": 21
+                }
+              },
+              "rangeConvention": {
+                "endBoundary": "unknown",
+                "columnUnit": "unknown"
+              }
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "short",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "short",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "i18n.fields.metavar",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.metavar",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/index.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/config-compatibility.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-1.0.0.schema.json"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-0.1.0-draft.schema.json"
+            }
+          ]
+        },
+        {
+          "id": "kind",
+          "kind": "option",
+          "name": "kind",
+          "short": "k",
+          "valueType": "string",
+          "required": false,
+          "multiple": false,
+          "choices": [
+            "css",
+            "postcss-css",
+            "design-token"
+          ],
+          "defaultRule": {
+            "kind": "conditional",
+            "conditions": [
+              "description"
+            ]
+          },
+          "i18n": {
+            "enabled": true,
+            "model": "hia-text-i18n",
+            "modelVersion": "1.0.0",
+            "defaultLocale": "zh-CN",
+            "locales": [
+              "zh-CN",
+              "en"
+            ],
+            "fields": {
+              "summary": {
+                "fieldPath": "summary",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "直接输入的类型，省略时从输入推断。",
+                  "en": "Direct-input kind, inferred from input when omitted."
+                }
+              },
+              "description": {
+                "fieldPath": "description",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "直接输入的类型，省略时从输入推断。",
+                  "en": "Direct-input kind, inferred from input when omitted."
+                }
+              },
+              "metavar": {
+                "fieldPath": "metavar",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "kind",
+                  "en": "kind"
+                }
+              }
+            }
+          },
+          "evidence": [
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs",
+              "range": {
+                "start": {
+                  "line": 21
+                },
+                "end": {
+                  "line": 21
+                }
+              },
+              "rangeConvention": {
+                "endBoundary": "unknown",
+                "columnUnit": "unknown"
+              }
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "short",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "short",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "choices",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "choices",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "i18n.fields.metavar",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.metavar",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/index.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/config-compatibility.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-1.0.0.schema.json"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-0.1.0-draft.schema.json"
+            }
+          ]
+        },
+        {
+          "id": "out-dir",
+          "kind": "option",
+          "name": "out-dir",
+          "short": "o",
+          "valueType": "string",
+          "required": false,
+          "multiple": false,
+          "defaultRule": {
+            "kind": "conditional",
+            "conditions": [
+              "description"
+            ]
+          },
+          "i18n": {
+            "enabled": true,
+            "model": "hia-text-i18n",
+            "modelVersion": "1.0.0",
+            "defaultLocale": "zh-CN",
+            "locales": [
+              "zh-CN",
+              "en"
+            ],
+            "fields": {
+              "summary": {
+                "fieldPath": "summary",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "配置模式非空值覆盖输出；直接模式缺省dist/cssdoc，空字符串为工作区根。",
+                  "en": "Nonempty values override configured output; direct mode defaults to dist/cssdoc, with an empty string selecting the workspace root."
+                }
+              },
+              "description": {
+                "fieldPath": "description",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "配置模式非空值覆盖输出；直接模式缺省dist/cssdoc，空字符串为工作区根。",
+                  "en": "Nonempty values override configured output; direct mode defaults to dist/cssdoc, with an empty string selecting the workspace root."
+                }
+              },
+              "metavar": {
+                "fieldPath": "metavar",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "path",
+                  "en": "path"
+                }
+              }
+            }
+          },
+          "evidence": [
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs",
+              "range": {
+                "start": {
+                  "line": 21
+                },
+                "end": {
+                  "line": 21
+                }
+              },
+              "rangeConvention": {
+                "endBoundary": "unknown",
+                "columnUnit": "unknown"
+              }
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "short",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "short",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "i18n.fields.metavar",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.metavar",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/index.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/config-compatibility.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-1.0.0.schema.json"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-0.1.0-draft.schema.json"
+            }
+          ]
+        },
+        {
+          "id": "workspace-root",
+          "kind": "option",
+          "name": "workspace-root",
+          "valueType": "string",
+          "required": false,
+          "multiple": false,
+          "defaultRule": {
+            "kind": "conditional",
+            "conditions": [
+              "description"
+            ]
+          },
+          "i18n": {
+            "enabled": true,
+            "model": "hia-text-i18n",
+            "modelVersion": "1.0.0",
+            "defaultLocale": "zh-CN",
+            "locales": [
+              "zh-CN",
+              "en"
+            ],
+            "fields": {
+              "summary": {
+                "fieldPath": "summary",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "直接模式的工作区根，省略时使用调用目录。",
+                  "en": "Workspace root for direct mode, defaulting to cwd."
+                }
+              },
+              "description": {
+                "fieldPath": "description",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "直接模式的工作区根，省略时使用调用目录。",
+                  "en": "Workspace root for direct mode, defaulting to cwd."
+                }
+              },
+              "metavar": {
+                "fieldPath": "metavar",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "path",
+                  "en": "path"
+                }
+              }
+            }
+          },
+          "evidence": [
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs",
+              "range": {
+                "start": {
+                  "line": 21
+                },
+                "end": {
+                  "line": 21
+                }
+              },
+              "rangeConvention": {
+                "endBoundary": "unknown",
+                "columnUnit": "unknown"
+              }
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "i18n.fields.metavar",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.metavar",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/index.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/config-compatibility.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-1.0.0.schema.json"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-0.1.0-draft.schema.json"
+            }
+          ]
+        },
+        {
+          "id": "sources-content-policy",
+          "kind": "option",
+          "name": "sources-content-policy",
+          "valueType": "string",
+          "required": false,
+          "multiple": false,
+          "choices": [
+            "none",
+            "reference",
+            "embed"
+          ],
+          "defaultRule": {
+            "kind": "conditional",
+            "conditions": [
+              "description"
+            ]
+          },
+          "i18n": {
+            "enabled": true,
+            "model": "hia-text-i18n",
+            "modelVersion": "1.0.0",
+            "defaultLocale": "zh-CN",
+            "locales": [
+              "zh-CN",
+              "en"
+            ],
+            "fields": {
+              "summary": {
+                "fieldPath": "summary",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "直接模式缺省none；配置模式省略或空值时保留原值，非空值覆盖。",
+                  "en": "Direct mode defaults to none; config mode retains its policy for omission or empty strings and uses nonempty overrides."
+                }
+              },
+              "description": {
+                "fieldPath": "description",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "直接模式缺省none；配置模式省略或空值时保留原值，非空值覆盖。",
+                  "en": "Direct mode defaults to none; config mode retains its policy for omission or empty strings and uses nonempty overrides."
+                }
+              },
+              "metavar": {
+                "fieldPath": "metavar",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "none|reference|embed",
+                  "en": "none|reference|embed"
+                }
+              }
+            }
+          },
+          "evidence": [
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs",
+              "range": {
+                "start": {
+                  "line": 21
+                },
+                "end": {
+                  "line": 21
+                }
+              },
+              "rangeConvention": {
+                "endBoundary": "unknown",
+                "columnUnit": "unknown"
+              }
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "choices",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "choices",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "i18n.fields.metavar",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.metavar",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/index.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/config-compatibility.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-1.0.0.schema.json"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-0.1.0-draft.schema.json"
+            }
+          ]
+        },
+        {
+          "id": "no-doc-source-map",
+          "kind": "option",
+          "name": "no-doc-source-map",
+          "valueType": "boolean",
+          "required": false,
+          "multiple": false,
+          "defaultRule": {
+            "kind": "conditional",
+            "conditions": [
+              "description"
+            ]
+          },
+          "i18n": {
+            "enabled": true,
+            "model": "hia-text-i18n",
+            "modelVersion": "1.0.0",
+            "defaultLocale": "zh-CN",
+            "locales": [
+              "zh-CN",
+              "en"
+            ],
+            "fields": {
+              "summary": {
+                "fieldPath": "summary",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "提供时关闭地图；省略时直接模式生成地图，配置模式保留原值。",
+                  "en": "Supplying the flag disables maps; omission enables direct-mode maps and retains the configured value."
+                }
+              },
+              "description": {
+                "fieldPath": "description",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "提供时关闭地图；省略时直接模式生成地图，配置模式保留原值。",
+                  "en": "Supplying the flag disables maps; omission enables direct-mode maps and retains the configured value."
+                }
+              }
+            }
+          },
+          "evidence": [
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs",
+              "range": {
+                "start": {
+                  "line": 21
+                },
+                "end": {
+                  "line": 21
+                }
+              },
+              "rangeConvention": {
+                "endBoundary": "unknown",
+                "columnUnit": "unknown"
+              }
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/index.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/config-compatibility.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-1.0.0.schema.json"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-0.1.0-draft.schema.json"
+            }
+          ]
+        },
+        {
+          "id": "help",
+          "kind": "option",
+          "name": "help",
+          "short": "h",
+          "valueType": "boolean",
+          "required": false,
+          "multiple": false,
+          "defaultRule": {
+            "kind": "not-applicable"
+          },
+          "i18n": {
+            "enabled": true,
+            "model": "hia-text-i18n",
+            "modelVersion": "1.0.0",
+            "defaultLocale": "zh-CN",
+            "locales": [
+              "zh-CN",
+              "en"
+            ],
+            "fields": {
+              "summary": {
+                "fieldPath": "summary",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "输出帮助并退出0。",
+                  "en": "Print help and exit 0."
+                }
+              },
+              "description": {
+                "fieldPath": "description",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "输出帮助并退出0。",
+                  "en": "Print help and exit 0."
+                }
+              }
+            }
+          },
+          "evidence": [
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs",
+              "range": {
+                "start": {
+                  "line": 21
+                },
+                "end": {
+                  "line": 21
+                }
+              },
+              "rangeConvention": {
+                "endBoundary": "unknown",
+                "columnUnit": "unknown"
+              }
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "short",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "short",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/index.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/config-compatibility.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-1.0.0.schema.json"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-0.1.0-draft.schema.json"
+            }
+          ]
+        },
+        {
+          "id": "version",
+          "kind": "option",
+          "name": "version",
+          "short": "v",
+          "valueType": "boolean",
+          "required": false,
+          "multiple": false,
+          "defaultRule": {
+            "kind": "not-applicable"
+          },
+          "i18n": {
+            "enabled": true,
+            "model": "hia-text-i18n",
+            "modelVersion": "1.0.0",
+            "defaultLocale": "zh-CN",
+            "locales": [
+              "zh-CN",
+              "en"
+            ],
+            "fields": {
+              "summary": {
+                "fieldPath": "summary",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "输出运行器版本并退出0。",
+                  "en": "Print runner version and exit 0."
+                }
+              },
+              "description": {
+                "fieldPath": "description",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "输出运行器版本并退出0。",
+                  "en": "Print runner version and exit 0."
+                }
+              }
+            }
+          },
+          "evidence": [
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs",
+              "range": {
+                "start": {
+                  "line": 21
+                },
+                "end": {
+                  "line": 21
+                }
+              },
+              "rangeConvention": {
+                "endBoundary": "unknown",
+                "columnUnit": "unknown"
+              }
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "short",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "short",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/index.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/config-compatibility.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-1.0.0.schema.json"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-0.1.0-draft.schema.json"
+            }
+          ]
+        }
+      ],
+      "positionals": [
+        {
+          "id": "positionals",
+          "kind": "positional",
+          "name": "positionals",
+          "valueType": "string",
+          "required": false,
+          "multiple": true,
+          "defaultRule": {
+            "kind": "not-applicable"
+          },
+          "i18n": {
+            "enabled": true,
+            "model": "hia-text-i18n",
+            "modelVersion": "1.0.0",
+            "defaultLocale": "zh-CN",
+            "locales": [
+              "zh-CN",
+              "en"
+            ],
+            "fields": {
+              "summary": {
+                "fieldPath": "summary",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "直接模式至少一个相对工作区的输入；配置模式忽略。",
+                  "en": "Direct mode requires at least one workspace-relative input; config mode ignores positional inputs."
+                }
+              },
+              "description": {
+                "fieldPath": "description",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "直接模式至少一个相对工作区的输入；配置模式忽略。",
+                  "en": "Direct mode requires at least one workspace-relative input; config mode ignores positional inputs."
+                }
+              },
+              "metavar": {
+                "fieldPath": "metavar",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "input...",
+                  "en": "input..."
+                }
+              }
+            }
+          },
+          "evidence": [
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs",
+              "range": {
+                "start": {
+                  "line": 21
+                },
+                "end": {
+                  "line": 21
+                }
+              },
+              "rangeConvention": {
+                "endBoundary": "unknown",
+                "columnUnit": "unknown"
+              }
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "kind",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "name",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "valueType",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "required",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "multiple",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/cli.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.summary",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.description",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "i18n.fields.metavar",
+              "sourceId": "src/command-content.mjs"
+            },
+            {
+              "fieldPath": "i18n.fields.metavar",
+              "sourceId": "README.md"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/index.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/config-compatibility.mjs"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-1.0.0.schema.json"
+            },
+            {
+              "fieldPath": "defaultRule",
+              "sourceId": "src/schemas/cssdoc-config-0.1.0-draft.schema.json"
+            }
+          ]
+        }
+      ],
+      "examples": [
+        "cssdoc --config cssdoc.config.json"
+      ],
+      "effects": {
+        "filesystem": "read-write",
+        "network": "none"
+      },
+      "exitCodes": [
+        {
+          "code": 0,
+          "i18n": {
+            "enabled": true,
+            "model": "hia-text-i18n",
+            "modelVersion": "1.0.0",
+            "defaultLocale": "zh-CN",
+            "locales": [
+              "zh-CN",
+              "en"
+            ],
+            "fields": {
+              "summary": {
+                "fieldPath": "summary",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "成功、帮助或版本",
+                  "en": "Success, help or version"
+                }
+              },
+              "description": {
+                "fieldPath": "description",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "成功、帮助或版本",
+                  "en": "Success, help or version"
+                }
+              }
+            }
+          }
+        },
+        {
+          "code": 1,
+          "i18n": {
+            "enabled": true,
+            "model": "hia-text-i18n",
+            "modelVersion": "1.0.0",
+            "defaultLocale": "zh-CN",
+            "locales": [
+              "zh-CN",
+              "en"
+            ],
+            "fields": {
+              "summary": {
+                "fieldPath": "summary",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "参数、配置或构建失败",
+                  "en": "Argument, configuration or build failure"
+                }
+              },
+              "description": {
+                "fieldPath": "description",
+                "kind": "text",
+                "defaultLocale": "zh-CN",
+                "localizedText": {
+                  "zh-CN": "参数、配置、partial或failed构建",
+                  "en": "Argument/configuration errors or partial/failed builds"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "fieldPath": "signature",
+          "sourceId": "src/cli.mjs",
+          "range": {
+            "start": {
+              "line": 21
+            },
+            "end": {
+              "line": 21
+            }
+          },
+          "rangeConvention": {
+            "endBoundary": "unknown",
+            "columnUnit": "unknown"
+          }
+        },
+        {
+          "fieldPath": "executable",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "executable",
+          "sourceId": "src/cli.mjs"
+        },
+        {
+          "fieldPath": "path",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "path",
+          "sourceId": "src/cli.mjs"
+        },
+        {
+          "fieldPath": "kind",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "kind",
+          "sourceId": "src/cli.mjs"
+        },
+        {
+          "fieldPath": "signature",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "signature",
+          "sourceId": "src/cli.mjs"
+        },
+        {
+          "fieldPath": "displayVersion",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "displayVersion",
+          "sourceId": "src/cli.mjs"
+        },
+        {
+          "fieldPath": "parsing",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "parsing",
+          "sourceId": "src/cli.mjs"
+        },
+        {
+          "fieldPath": "examples",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "examples",
+          "sourceId": "src/cli.mjs"
+        },
+        {
+          "fieldPath": "effects",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "effects",
+          "sourceId": "src/cli.mjs"
+        },
+        {
+          "fieldPath": "exitCodes",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "exitCodes",
+          "sourceId": "src/cli.mjs"
+        },
+        {
+          "fieldPath": "i18n.fields.summary",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "i18n.fields.summary",
+          "sourceId": "README.md"
+        },
+        {
+          "fieldPath": "i18n.fields.description",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "i18n.fields.description",
+          "sourceId": "README.md"
+        },
+        {
+          "fieldPath": "i18n.fields.configUsage",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "i18n.fields.configUsage",
+          "sourceId": "README.md"
+        },
+        {
+          "fieldPath": "i18n.fields.configOverrides",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "i18n.fields.configOverrides",
+          "sourceId": "README.md"
+        },
+        {
+          "fieldPath": "i18n.fields.directOnly",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "i18n.fields.directOnly",
+          "sourceId": "README.md"
+        },
+        {
+          "fieldPath": "i18n.fields.paths",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "i18n.fields.paths",
+          "sourceId": "README.md"
+        },
+        {
+          "fieldPath": "i18n.fields.writes",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "i18n.fields.writes",
+          "sourceId": "README.md"
+        },
+        {
+          "fieldPath": "i18n.fields.parsing",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "i18n.fields.parsing",
+          "sourceId": "README.md"
+        },
+        {
+          "fieldPath": "i18n.fields.offline",
+          "sourceId": "src/command-content.mjs"
+        },
+        {
+          "fieldPath": "i18n.fields.offline",
+          "sourceId": "README.md"
+        }
+      ]
+    }
+  ]
+}

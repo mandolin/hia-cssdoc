@@ -60,6 +60,15 @@ for (const packageRoot of packageRoots) {
     console.error("Missing src/cli.mjs in @hia-doc/cssdoc-runner pack dry-run.");
     failed = true;
   }
+  // <lang><zh-CN>实际CLI依赖静态帮助，描述/观察/文档/schema与摘要须一并进入真实归档。</zh-CN><en>The actual CLI depends on static help, so descriptions, observations, documents, schemas and digests must ship together in the real archive.</en></lang>
+  if (packageJson.name === "@hia-doc/cssdoc-runner") {
+    for (const file of ["description.json", "observations.json", "document.hia.json", "command.schema.json", "document.schema.json", "help.mjs", "generation.json"]) {
+      if (!packedPaths.has("src/command-documentation/" + file)) {
+        console.error(`Missing generated command asset ${file}.`);
+        failed = true;
+      }
+    }
+  }
   // <lang><zh-CN>包声明的四JSON入口必须实际随包，根对象不能掩盖资源缺失。</zh-CN><en>The four declared JSON entries must ship; root schema objects cannot hide missing resources.</en></lang>
   for (const [entry, target] of Object.entries(packageJson.exports ?? {})) {
     if (entry.endsWith(".schema.json") && !packedPaths.has(target.replace(/^\.\//, ""))) {

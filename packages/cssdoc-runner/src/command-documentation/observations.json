@@ -1,0 +1,62 @@
+[
+  {
+    "commandId": "cssdoc",
+    "sourceDigests": {
+      "src/cli.mjs": "b8dc623556d60300123586ff0d404f5ad171f06f69d6fc848d2cc91c6c16777b",
+      "src/command-content.mjs": "97fc8e337e486edf00433c505195704f3d47ebb48cf146b78559d2c123751205",
+      "src/metadata.mjs": "27aea061883a3105fe28271f6fd2a1e4b554a73cbfd114fdf19e081ed5447e62",
+      "src/index.mjs": "e7b16c94a22b3b6a7335ce3e60a6471d7a79c614ee573c6873d8aba27e529b25",
+      "src/schema.mjs": "65a9c7f1765206e569d0da91624884b0cebabce64cb91d0ffc7f8aaf6f304894",
+      "src/config-compatibility.mjs": "48e84ecf7316979854c3ae78fcc38caa7a7dbc78d31f3311856614b7f4369bfc",
+      "src/schemas/cssdoc-config-0.1.0-draft.schema.json": "7467524764faad0ab3f8a1a9248e022d097198d9584fe179ba9bae9f247a5fe0",
+      "src/schemas/cssdoc-config-1.0.0.schema.json": "fef1ee7048982d62f69e7cb805eed6f429e66af552a6d87b7070de44e3d739dc",
+      "README.md": "ef98236f15a557579ddaeedf78603e8cb4f3c9495d93d1f8aef2a677ca8fc4a2",
+      "package.json": "703eb7281b3d65c4a46e4ef8eeacccbd0b22e72afae46a382ab465390e64e9ef"
+    },
+    "options": [
+      {
+        "name": "config",
+        "valueType": "string",
+        "short": "c"
+      },
+      {
+        "name": "help",
+        "valueType": "boolean",
+        "short": "h"
+      },
+      {
+        "name": "kind",
+        "valueType": "string",
+        "short": "k"
+      },
+      {
+        "name": "no-doc-source-map",
+        "valueType": "boolean"
+      },
+      {
+        "name": "out-dir",
+        "valueType": "string",
+        "short": "o"
+      },
+      {
+        "name": "sources-content-policy",
+        "valueType": "string"
+      },
+      {
+        "name": "version",
+        "valueType": "boolean",
+        "short": "v"
+      },
+      {
+        "name": "workspace-root",
+        "valueType": "string"
+      }
+    ],
+    "positionals": [
+      {
+        "name": "positionals",
+        "valueType": "string"
+      }
+    ]
+  }
+]

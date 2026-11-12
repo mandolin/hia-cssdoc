@@ -1,0 +1,13 @@
+# 命令快照的真实来源在Windows/Linux使用相同LF原字节。
+# Command snapshot sources use identical LF bytes on Windows and Linux.
+packages/cssdoc-runner/src/cli.mjs text eol=lf
+packages/cssdoc-runner/src/command-content.mjs text eol=lf
+packages/cssdoc-runner/src/metadata.mjs text eol=lf
+packages/cssdoc-runner/src/index.mjs text eol=lf
+packages/cssdoc-runner/src/schema.mjs text eol=lf
+packages/cssdoc-runner/src/config-compatibility.mjs text eol=lf
+packages/cssdoc-runner/README.md text eol=lf
+packages/cssdoc-runner/package.json text eol=lf
+packages/cssdoc-runner/src/command-documentation/* text eol=lf
+packages/cssdoc-runner/src/schemas/cssdoc-config-0.1.0-draft.schema.json text eol=lf
+packages/cssdoc-runner/src/schemas/cssdoc-config-1.0.0.schema.json text eol=lf

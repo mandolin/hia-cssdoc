@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — CSSDoc command documentation and help
+
+- CSSDoc命令从共享双语内容生成80/120列静态帮助、真实parseArgs观察及标准HiaDocument，随包分发并通过离线来源/快照/schema门禁。
+- Generate packaged 80/120-column help, actual parseArgs observations and a standard HiaDocument from shared bilingual CSSDoc content, with offline source/snapshot/schema verification.
+- 保留框架先解析、帮助/版本与两种运行模式的实际规则，相关来源按限定LF属性保持跨平台原字节摘要可复核。
+- Retain native parse-first help/version and execution-mode rules, using scoped LF attributes for cross-platform original-byte digest verification.
+
 ## Unreleased — 1.0.0 source candidates
 
 - Document legacy config/extraction exports individually through compatibility facades retaining the exact archived objects and values; historical modules and schemas remain unchanged.

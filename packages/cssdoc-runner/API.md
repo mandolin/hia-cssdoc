@@ -100,3 +100,9 @@ provide a suitable callback sink. No npm or network publication is executed.
 Subpath `./metadata` exports `CSSDOC_RUNNER_VERSION`, `CSSDOC_INPUT_KINDS` and `CSSDOC_OUTPUT_KINDS` from pure definitions. The arrays are frozen, and the root API exposes the same references. This entry performs no runner operations.
 
 中文说明。metadata子入口提供同一版本与冻结输入/输出种类，适用于发现和文档工具。声明分支与运行分支分别提供，构建使用原运行API。
+
+## Command assets
+
+The packaged `src/command-documentation/` directory contains draft command descriptions, observations, a standard HiaDocument, schemas and static bilingual help. Source maintainers regenerate through an explicitly selected core implementation and run the offline freshness gate. The existing root exports and metadata subpath retain their responsibilities.
+
+中文。命令资产记录八开关与条件位置输入、运行器版本、配置/直接模式及副作用。真实Node解析表独立观察，帮助经过严格参数解析后输出，来源为调用行级声明。详见[命令资产说明](README.md#command-documentation-assets)。
