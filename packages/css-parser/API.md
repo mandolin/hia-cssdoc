@@ -4,7 +4,7 @@
 
 ## Public exports
 
-- `parseCss(source, options?)`: parses a CSS string with pinned PostCSS 8.5.16,
+- `parseCss(source, options?)`: parses a CSS string with pinned PostCSS 8.5.33,
   explicit `from` and source maps disabled. Returns a wrapper around its AST.
 - `getCssNodeLocation(node)`: returns `node.source` by reference, or `null`.
 - `normalizeSourcePath(sourcePath)`: validates and slash-normalizes a declared

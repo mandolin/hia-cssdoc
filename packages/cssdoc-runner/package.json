@@ -29,7 +29,7 @@
     "@hia-doc/css-doc-source-map": "1.0.0",
     "@hia-doc/cssdoc-spec": "1.0.0",
     "@hia-doc/design-token-bridge": "1.0.0",
-    "ajv": "8.17.1"
+    "ajv": "8.20.0"
   },
   "publishConfig": {
     "access": "public",

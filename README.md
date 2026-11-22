@@ -125,7 +125,7 @@ inheritance and maps `$root` tokens to the group path.
 
 - Node.js `^22.23.4 || ^24.22.1`; local development is pinned to `24.22.1` with mise.
 - CI release gates cover Node.js 22.23.4 and 24.22.1 on Windows and Ubuntu.
-- PostCSS `8.5.16`.
+- PostCSS `8.5.33`.
 - Design Tokens Format Module `2025.10`.
 - CSSDoc extraction/artifact profile `1.0.0`, with exact `0.1.0-draft` JSON reading.
 - CSSDoc config schema `1.0.0`, preserving the exact original old schema.

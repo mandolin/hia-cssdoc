@@ -12,7 +12,7 @@ const allowedExternalPackages = new Map([
   ["require-from-string", "MIT"]
 ]);
 /** @lang zh-CN 限定此次已审计的精确实现，不让许可白名单掩盖未审版本升级。 @lang en Pins the reviewed implementations so a license allowlist cannot hide unreviewed upgrades. */
-const reviewedVersions = new Map([["postcss", "8.5.16"], ["nanoid", "3.3.15"], ["picocolors", "1.1.1"], ["source-map-js", "1.2.1"], ["ajv", "8.17.1"], ["fast-deep-equal", "3.1.3"], ["fast-uri", "3.1.9"], ["json-schema-traverse", "1.0.0"], ["require-from-string", "2.0.2"]]);
+const reviewedVersions = new Map([["postcss", "8.5.33"], ["nanoid", "3.3.20"], ["picocolors", "1.1.1"], ["source-map-js", "1.2.4"], ["ajv", "8.20.0"], ["fast-deep-equal", "3.1.3"], ["fast-uri", "3.1.9"], ["json-schema-traverse", "1.0.0"], ["require-from-string", "2.0.2"]]);
 
 if (!fs.existsSync(lockPath)) {
   console.error("package-lock.json is required after adding reviewed parser dependencies.");
